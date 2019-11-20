@@ -537,7 +537,7 @@
             this.btnSairKits.Location = new System.Drawing.Point(401, 131);
             this.btnSairKits.Name = "btnSairKits";
             this.btnSairKits.Size = new System.Drawing.Size(113, 23);
-            this.btnSairKits.TabIndex = 46;
+            this.btnSairKits.TabIndex = 8;
             this.btnSairKits.Text = "Sair";
             this.btnSairKits.UseVisualStyleBackColor = true;
             this.btnSairKits.Click += new System.EventHandler(this.btnSairKits_Click);
@@ -547,7 +547,7 @@
             this.btnMostrarKits.Location = new System.Drawing.Point(273, 131);
             this.btnMostrarKits.Name = "btnMostrarKits";
             this.btnMostrarKits.Size = new System.Drawing.Size(113, 23);
-            this.btnMostrarKits.TabIndex = 45;
+            this.btnMostrarKits.TabIndex = 7;
             this.btnMostrarKits.Text = "Mostrar Dados";
             this.btnMostrarKits.UseVisualStyleBackColor = true;
             this.btnMostrarKits.Click += new System.EventHandler(this.btnMostrarKits_Click);
@@ -557,7 +557,7 @@
             this.btnExcluirKits.Location = new System.Drawing.Point(145, 131);
             this.btnExcluirKits.Name = "btnExcluirKits";
             this.btnExcluirKits.Size = new System.Drawing.Size(113, 23);
-            this.btnExcluirKits.TabIndex = 44;
+            this.btnExcluirKits.TabIndex = 6;
             this.btnExcluirKits.Text = "Excluir";
             this.btnExcluirKits.UseVisualStyleBackColor = true;
             this.btnExcluirKits.Click += new System.EventHandler(this.btnExcluirKits_Click);
@@ -567,7 +567,7 @@
             this.btnAdicionarKits.Location = new System.Drawing.Point(17, 131);
             this.btnAdicionarKits.Name = "btnAdicionarKits";
             this.btnAdicionarKits.Size = new System.Drawing.Size(113, 23);
-            this.btnAdicionarKits.TabIndex = 43;
+            this.btnAdicionarKits.TabIndex = 5;
             this.btnAdicionarKits.Text = "Adicionar";
             this.btnAdicionarKits.UseVisualStyleBackColor = true;
             this.btnAdicionarKits.Click += new System.EventHandler(this.btnAdicionarKits_Click);
@@ -577,28 +577,28 @@
             this.tbComponente1.Location = new System.Drawing.Point(118, 42);
             this.tbComponente1.Name = "tbComponente1";
             this.tbComponente1.Size = new System.Drawing.Size(396, 22);
-            this.tbComponente1.TabIndex = 42;
+            this.tbComponente1.TabIndex = 2;
             // 
             // tbComponente2
             // 
             this.tbComponente2.Location = new System.Drawing.Point(118, 70);
             this.tbComponente2.Name = "tbComponente2";
             this.tbComponente2.Size = new System.Drawing.Size(396, 22);
-            this.tbComponente2.TabIndex = 41;
+            this.tbComponente2.TabIndex = 3;
             // 
             // tbComponente3
             // 
             this.tbComponente3.Location = new System.Drawing.Point(118, 98);
             this.tbComponente3.Name = "tbComponente3";
             this.tbComponente3.Size = new System.Drawing.Size(396, 22);
-            this.tbComponente3.TabIndex = 40;
+            this.tbComponente3.TabIndex = 4;
             // 
             // tbCodigoModulo
             // 
             this.tbCodigoModulo.Location = new System.Drawing.Point(118, 14);
             this.tbCodigoModulo.Name = "tbCodigoModulo";
             this.tbCodigoModulo.Size = new System.Drawing.Size(110, 22);
-            this.tbCodigoModulo.TabIndex = 39;
+            this.tbCodigoModulo.TabIndex = 1;
             // 
             // label15
             // 
