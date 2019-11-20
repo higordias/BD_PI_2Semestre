@@ -71,11 +71,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.TabelaKits = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.dgvKits = new System.Windows.Forms.DataGridView();
+            this.btnSairKits = new System.Windows.Forms.Button();
+            this.btnMostrarKits = new System.Windows.Forms.Button();
+            this.btnExcluirKits = new System.Windows.Forms.Button();
+            this.btnAdicionarKits = new System.Windows.Forms.Button();
             this.tbComponente1 = new System.Windows.Forms.TextBox();
             this.tbComponente2 = new System.Windows.Forms.TextBox();
             this.tbComponente3 = new System.Windows.Forms.TextBox();
@@ -91,7 +91,7 @@
             this.btnConcluir = new System.Windows.Forms.Button();
             this.btnProximo = new System.Windows.Forms.Button();
             this.tbNomeColuna = new System.Windows.Forms.TextBox();
-            this.button11 = new System.Windows.Forms.Button();
+            this.btnExcluirTabela = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
@@ -100,7 +100,7 @@
             this.TabelaClientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.TabelaKits.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKits)).BeginInit();
             this.GerenciarTabelas.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -501,11 +501,11 @@
             // 
             // TabelaKits
             // 
-            this.TabelaKits.Controls.Add(this.dataGridView1);
-            this.TabelaKits.Controls.Add(this.button5);
-            this.TabelaKits.Controls.Add(this.button6);
-            this.TabelaKits.Controls.Add(this.button7);
-            this.TabelaKits.Controls.Add(this.button8);
+            this.TabelaKits.Controls.Add(this.dgvKits);
+            this.TabelaKits.Controls.Add(this.btnSairKits);
+            this.TabelaKits.Controls.Add(this.btnMostrarKits);
+            this.TabelaKits.Controls.Add(this.btnExcluirKits);
+            this.TabelaKits.Controls.Add(this.btnAdicionarKits);
             this.TabelaKits.Controls.Add(this.tbComponente1);
             this.TabelaKits.Controls.Add(this.tbComponente2);
             this.TabelaKits.Controls.Add(this.tbComponente3);
@@ -522,51 +522,55 @@
             this.TabelaKits.Text = "Tabela Kits";
             this.TabelaKits.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dgvKits
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(17, 175);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(499, 245);
-            this.dataGridView1.TabIndex = 47;
+            this.dgvKits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvKits.Location = new System.Drawing.Point(17, 175);
+            this.dgvKits.Name = "dgvKits";
+            this.dgvKits.RowHeadersWidth = 51;
+            this.dgvKits.RowTemplate.Height = 24;
+            this.dgvKits.Size = new System.Drawing.Size(499, 245);
+            this.dgvKits.TabIndex = 47;
             // 
-            // button5
+            // btnSairKits
             // 
-            this.button5.Location = new System.Drawing.Point(401, 131);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(113, 23);
-            this.button5.TabIndex = 46;
-            this.button5.Text = "Sair";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnSairKits.Location = new System.Drawing.Point(401, 131);
+            this.btnSairKits.Name = "btnSairKits";
+            this.btnSairKits.Size = new System.Drawing.Size(113, 23);
+            this.btnSairKits.TabIndex = 46;
+            this.btnSairKits.Text = "Sair";
+            this.btnSairKits.UseVisualStyleBackColor = true;
+            this.btnSairKits.Click += new System.EventHandler(this.btnSairKits_Click);
             // 
-            // button6
+            // btnMostrarKits
             // 
-            this.button6.Location = new System.Drawing.Point(273, 131);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(113, 23);
-            this.button6.TabIndex = 45;
-            this.button6.Text = "Mostrar Dados";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnMostrarKits.Location = new System.Drawing.Point(273, 131);
+            this.btnMostrarKits.Name = "btnMostrarKits";
+            this.btnMostrarKits.Size = new System.Drawing.Size(113, 23);
+            this.btnMostrarKits.TabIndex = 45;
+            this.btnMostrarKits.Text = "Mostrar Dados";
+            this.btnMostrarKits.UseVisualStyleBackColor = true;
+            this.btnMostrarKits.Click += new System.EventHandler(this.btnMostrarKits_Click);
             // 
-            // button7
+            // btnExcluirKits
             // 
-            this.button7.Location = new System.Drawing.Point(145, 131);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(113, 23);
-            this.button7.TabIndex = 44;
-            this.button7.Text = "Excluir";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnExcluirKits.Location = new System.Drawing.Point(145, 131);
+            this.btnExcluirKits.Name = "btnExcluirKits";
+            this.btnExcluirKits.Size = new System.Drawing.Size(113, 23);
+            this.btnExcluirKits.TabIndex = 44;
+            this.btnExcluirKits.Text = "Excluir";
+            this.btnExcluirKits.UseVisualStyleBackColor = true;
+            this.btnExcluirKits.Click += new System.EventHandler(this.btnExcluirKits_Click);
             // 
-            // button8
+            // btnAdicionarKits
             // 
-            this.button8.Location = new System.Drawing.Point(17, 131);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(113, 23);
-            this.button8.TabIndex = 43;
-            this.button8.Text = "Adicionar";
-            this.button8.UseVisualStyleBackColor = true;
+            this.btnAdicionarKits.Location = new System.Drawing.Point(17, 131);
+            this.btnAdicionarKits.Name = "btnAdicionarKits";
+            this.btnAdicionarKits.Size = new System.Drawing.Size(113, 23);
+            this.btnAdicionarKits.TabIndex = 43;
+            this.btnAdicionarKits.Text = "Adicionar";
+            this.btnAdicionarKits.UseVisualStyleBackColor = true;
+            this.btnAdicionarKits.Click += new System.EventHandler(this.btnAdicionarKits_Click);
             // 
             // tbComponente1
             // 
@@ -649,7 +653,7 @@
             this.GerenciarTabelas.Controls.Add(this.btnConcluir);
             this.GerenciarTabelas.Controls.Add(this.btnProximo);
             this.GerenciarTabelas.Controls.Add(this.tbNomeColuna);
-            this.GerenciarTabelas.Controls.Add(this.button11);
+            this.GerenciarTabelas.Controls.Add(this.btnExcluirTabela);
             this.GerenciarTabelas.Controls.Add(this.button10);
             this.GerenciarTabelas.Controls.Add(this.button9);
             this.GerenciarTabelas.Location = new System.Drawing.Point(4, 25);
@@ -700,14 +704,15 @@
             this.tbNomeColuna.Size = new System.Drawing.Size(259, 22);
             this.tbNomeColuna.TabIndex = 47;
             // 
-            // button11
+            // btnExcluirTabela
             // 
-            this.button11.Location = new System.Drawing.Point(107, 113);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(113, 23);
-            this.button11.TabIndex = 46;
-            this.button11.Text = "Table Names";
-            this.button11.UseVisualStyleBackColor = true;
+            this.btnExcluirTabela.Location = new System.Drawing.Point(107, 113);
+            this.btnExcluirTabela.Name = "btnExcluirTabela";
+            this.btnExcluirTabela.Size = new System.Drawing.Size(113, 23);
+            this.btnExcluirTabela.TabIndex = 46;
+            this.btnExcluirTabela.Text = "Excluir Tabela";
+            this.btnExcluirTabela.UseVisualStyleBackColor = true;
+            this.btnExcluirTabela.Click += new System.EventHandler(this.btnExcluirTabela_Click);
             // 
             // button10
             // 
@@ -746,7 +751,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
             this.TabelaKits.ResumeLayout(false);
             this.TabelaKits.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKits)).EndInit();
             this.GerenciarTabelas.ResumeLayout(false);
             this.GerenciarTabelas.PerformLayout();
             this.ResumeLayout(false);
@@ -798,11 +803,11 @@
         private System.Windows.Forms.TabPage TabelaAcessos;
         private System.Windows.Forms.TextBox tbModuloInstalado;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.DataGridView dgvKits;
+        private System.Windows.Forms.Button btnSairKits;
+        private System.Windows.Forms.Button btnMostrarKits;
+        private System.Windows.Forms.Button btnExcluirKits;
+        private System.Windows.Forms.Button btnAdicionarKits;
         private System.Windows.Forms.TextBox tbComponente1;
         private System.Windows.Forms.TextBox tbComponente2;
         private System.Windows.Forms.TextBox tbComponente3;
@@ -814,7 +819,7 @@
         private System.Windows.Forms.TabPage GerenciarTabelas;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button btnExcluirTabela;
         private System.Windows.Forms.TextBox tbNomeColuna;
         private System.Windows.Forms.Button btnProximo;
         private System.Windows.Forms.Button btnConcluir;
