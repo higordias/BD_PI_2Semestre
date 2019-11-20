@@ -20,6 +20,18 @@ namespace BancoDeDados_PI
             InitializeComponent();
         }
 
+        private void excluirTabela(string tabela)
+        {
+            SqlCeConnection cn = new SqlCeConnection(stringConexao());
+            if (cn.State == ConnectionState.Closed)
+            {
+                cn.Open();
+            }
+            string sqlCommand = "DROP TABLE " + tabela;
+            SqlCeCommand command = new SqlCeCommand(sqlCommand, cn);
+            command.ExecuteNonQuery();
+            cn.Close();
+        }
         public int countEntries(string tabela, string coluna, TextBox campo, SqlCeConnection cn)
         {
             string check = "SELECT COUNT(*) from " + tabela + " WHERE " + coluna + "='" + campo.Text + "'";
@@ -138,6 +150,32 @@ namespace BancoDeDados_PI
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void CarregarLinhaTabelaKits(string codigoKit, string componente1, string componente2, string componente3, SqlCeConnection cn)
+        {
+            SqlCeCommand cmd;
+            string sqlKits = "insert into TabelaKits "
+                        + "(codigoKit, componente1, componente2, componente3) "
+                        + "values (@CodigoKit, @Componente1, @Componente2, @Componente3)";
+            try
+            {
+                cmd = new SqlCeCommand(sqlKits, cn);
+                cmd.Parameters.AddWithValue("@CodigoKit", codigoKit);
+                cmd.Parameters.AddWithValue("@Componente1", componente1);
+                cmd.Parameters.AddWithValue("@Componente2", componente2);
+                cmd.Parameters.AddWithValue("@Componente3", componente3);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlCeException sqlexception)
+            {
+                MessageBox.Show(sqlexception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         private void showDataBase(string tabela, DataGridView grid)
         {
@@ -426,7 +464,7 @@ namespace BancoDeDados_PI
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnMostrarClientes_Click(object sender, EventArgs e)
@@ -459,7 +497,7 @@ namespace BancoDeDados_PI
                 }
                 SqlCeCommand cmd;
 
-                string sql = "create table " + Resultado + "("
+                /*string sql = "create table " + Resultado + "("
                            + "CodigoCliente nvarchar (10) not null, "
                            + "ModuloInstalado nvarchar (10), "
                            + "Nome nvarchar (40), "
@@ -470,6 +508,13 @@ namespace BancoDeDados_PI
                            + "CEP nvarchar (15), "
                            + "Cidade nvarchar (20), "
                            + "Estado nvarchar (2) )";
+                */
+
+                string sql = "create table " + Resultado + "("
+                           + "CodigoKit nvarchar (10) not null, "
+                           + "Componente1 nvarchar (20), "
+                           + "Componente2 nvarchar (20), "
+                           + "Componente3 nvarchar (20) )";
 
                 cmd = new SqlCeCommand(sql, cn);
 
@@ -594,7 +639,78 @@ namespace BancoDeDados_PI
 
         private void btnSairCliente_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void btnSairKits_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnMostrarKits_Click(object sender, EventArgs e)
+        {
+            showDataBase("TabelaKits", dgvKits);
+        }
+
+        private void btnAdicionarKits_Click(object sender, EventArgs e)
+        {
+            if ((tbCodigoModulo.Text == "") ||
+                (tbComponente1.Text == "")  ||
+                (tbComponente2.Text == "")  ||
+                (tbComponente3.Text == ""))
+            {
+                MessageBox.Show("Preencha todos os campos antes de adicionar uma entrada!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (tbCodigoModulo.Text == "")      { tbCodigoModulo.Focus();   }
+                else if (tbComponente1.Text == "")  { tbComponente1.Focus();    }
+                else if (tbComponente2.Text == "")  { tbComponente2.Focus();    }
+                else if (tbComponente3.Text == "")  { tbComponente3.Focus();    }
+            }
+            else
+            {
+                SqlCeConnection cn = new SqlCeConnection(stringConexao());
+                if (cn.State == ConnectionState.Closed)
+                {
+                    cn.Open();
+                }
+
+                int codigoCount = countEntries("TabelaKits", "CodigoKit", tbCodigoModulo, cn);
+
+                if (codigoCount > 0)
+                {
+                    if (codigoCount > 0)
+                    {
+                        MessageBox.Show("Codigo ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbCodigoModulo.Focus();
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        CarregarLinhaTabelaKits(tbCodigoModulo.Text, tbComponente1.Text, tbComponente2.Text, tbComponente3.Text, cn);
+                        tbCodigoModulo.Text = "";
+                        tbComponente1.Text = "";
+                        tbComponente2.Text = "";
+                        tbComponente3.Text = "";
+                        showDataBase("TabelaKits", dgvKits);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                cn.Close();
+            }
+        }
+
+        private void btnExcluirTabela_Click(object sender, EventArgs e)
+        {
+            excluirTabela("TabelaKits");
+        }
+
+        private void btnExcluirKits_Click(object sender, EventArgs e)
+        {
+            deleteEntries("TabelaKits", "CodigoKit", tbCodigoModulo, dgvKits);
         }
     }
 }
