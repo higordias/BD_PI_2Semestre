@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BDHomeAutomation));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabelaLogin = new System.Windows.Forms.TabPage();
+            this.btnLimparLogin = new System.Windows.Forms.Button();
             this.cbNome = new System.Windows.Forms.ComboBox();
             this.dgvLogin = new System.Windows.Forms.DataGridView();
             this.btnSair = new System.Windows.Forms.Button();
@@ -45,7 +46,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.TabelaClientes = new System.Windows.Forms.TabPage();
-            this.tbModuloInstalado = new System.Windows.Forms.TextBox();
+            this.btnLimparClientes = new System.Windows.Forms.Button();
+            this.cbModuloInstalado = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.tbCelular = new System.Windows.Forms.TextBox();
@@ -119,6 +121,7 @@
             // 
             // TabelaLogin
             // 
+            this.TabelaLogin.Controls.Add(this.btnLimparLogin);
             this.TabelaLogin.Controls.Add(this.cbNome);
             this.TabelaLogin.Controls.Add(this.dgvLogin);
             this.TabelaLogin.Controls.Add(this.btnSair);
@@ -141,6 +144,16 @@
             this.TabelaLogin.UseVisualStyleBackColor = true;
             this.TabelaLogin.Enter += new System.EventHandler(this.TabelaLogin_Enter);
             // 
+            // btnLimparLogin
+            // 
+            this.btnLimparLogin.Location = new System.Drawing.Point(373, 114);
+            this.btnLimparLogin.Name = "btnLimparLogin";
+            this.btnLimparLogin.Size = new System.Drawing.Size(62, 23);
+            this.btnLimparLogin.TabIndex = 16;
+            this.btnLimparLogin.Text = "Limpar";
+            this.btnLimparLogin.UseVisualStyleBackColor = true;
+            this.btnLimparLogin.Click += new System.EventHandler(this.button1_Click);
+            // 
             // cbNome
             // 
             this.cbNome.FormattingEnabled = true;
@@ -161,9 +174,9 @@
             // 
             // btnSair
             // 
-            this.btnSair.Location = new System.Drawing.Point(390, 114);
+            this.btnSair.Location = new System.Drawing.Point(443, 114);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(113, 23);
+            this.btnSair.Size = new System.Drawing.Size(60, 23);
             this.btnSair.TabIndex = 8;
             this.btnSair.Text = "Sair";
             this.btnSair.UseVisualStyleBackColor = true;
@@ -171,9 +184,9 @@
             // 
             // btnMostrarDados
             // 
-            this.btnMostrarDados.Location = new System.Drawing.Point(390, 82);
+            this.btnMostrarDados.Location = new System.Drawing.Point(373, 82);
             this.btnMostrarDados.Name = "btnMostrarDados";
-            this.btnMostrarDados.Size = new System.Drawing.Size(113, 23);
+            this.btnMostrarDados.Size = new System.Drawing.Size(130, 23);
             this.btnMostrarDados.TabIndex = 7;
             this.btnMostrarDados.Text = "Mostrar Dados";
             this.btnMostrarDados.UseVisualStyleBackColor = true;
@@ -181,9 +194,9 @@
             // 
             // btnExcluir
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(390, 50);
+            this.btnExcluir.Location = new System.Drawing.Point(373, 50);
             this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(113, 23);
+            this.btnExcluir.Size = new System.Drawing.Size(130, 23);
             this.btnExcluir.TabIndex = 6;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
@@ -191,9 +204,9 @@
             // 
             // btnAdicionar
             // 
-            this.btnAdicionar.Location = new System.Drawing.Point(390, 18);
+            this.btnAdicionar.Location = new System.Drawing.Point(373, 18);
             this.btnAdicionar.Name = "btnAdicionar";
-            this.btnAdicionar.Size = new System.Drawing.Size(113, 23);
+            this.btnAdicionar.Size = new System.Drawing.Size(130, 23);
             this.btnAdicionar.TabIndex = 5;
             this.btnAdicionar.Text = "Adicionar";
             this.btnAdicionar.UseVisualStyleBackColor = true;
@@ -258,7 +271,8 @@
             // 
             // TabelaClientes
             // 
-            this.TabelaClientes.Controls.Add(this.tbModuloInstalado);
+            this.TabelaClientes.Controls.Add(this.btnLimparClientes);
+            this.TabelaClientes.Controls.Add(this.cbModuloInstalado);
             this.TabelaClientes.Controls.Add(this.label14);
             this.TabelaClientes.Controls.Add(this.dgvClientes);
             this.TabelaClientes.Controls.Add(this.tbCelular);
@@ -290,18 +304,29 @@
             this.TabelaClientes.TabIndex = 1;
             this.TabelaClientes.Text = "Tabela Clientes";
             this.TabelaClientes.UseVisualStyleBackColor = true;
+            this.TabelaClientes.Enter += new System.EventHandler(this.TabelaClientes_Enter);
             // 
-            // tbModuloInstalado
+            // btnLimparClientes
             // 
-            this.tbModuloInstalado.Location = new System.Drawing.Point(417, 18);
-            this.tbModuloInstalado.Name = "tbModuloInstalado";
-            this.tbModuloInstalado.Size = new System.Drawing.Size(96, 22);
-            this.tbModuloInstalado.TabIndex = 2;
+            this.btnLimparClientes.Location = new System.Drawing.Point(365, 193);
+            this.btnLimparClientes.Name = "btnLimparClientes";
+            this.btnLimparClientes.Size = new System.Drawing.Size(70, 23);
+            this.btnLimparClientes.TabIndex = 36;
+            this.btnLimparClientes.Text = "Limpar";
+            this.btnLimparClientes.UseVisualStyleBackColor = true;
+            this.btnLimparClientes.Click += new System.EventHandler(this.btnLimparClientes_Click);
+            // 
+            // cbModuloInstalado
+            // 
+            this.cbModuloInstalado.Location = new System.Drawing.Point(398, 17);
+            this.cbModuloInstalado.Name = "cbModuloInstalado";
+            this.cbModuloInstalado.Size = new System.Drawing.Size(115, 24);
+            this.cbModuloInstalado.TabIndex = 0;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(300, 21);
+            this.label14.Location = new System.Drawing.Point(282, 21);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(115, 17);
             this.label14.TabIndex = 35;
@@ -399,9 +424,9 @@
             // 
             // btnSairCliente
             // 
-            this.btnSairCliente.Location = new System.Drawing.Point(398, 193);
+            this.btnSairCliente.Location = new System.Drawing.Point(441, 193);
             this.btnSairCliente.Name = "btnSairCliente";
-            this.btnSairCliente.Size = new System.Drawing.Size(113, 23);
+            this.btnSairCliente.Size = new System.Drawing.Size(70, 23);
             this.btnSairCliente.TabIndex = 14;
             this.btnSairCliente.Text = "Sair";
             this.btnSairCliente.UseVisualStyleBackColor = true;
@@ -409,9 +434,9 @@
             // 
             // btnMostrarClientes
             // 
-            this.btnMostrarClientes.Location = new System.Drawing.Point(270, 193);
+            this.btnMostrarClientes.Location = new System.Drawing.Point(248, 193);
             this.btnMostrarClientes.Name = "btnMostrarClientes";
-            this.btnMostrarClientes.Size = new System.Drawing.Size(113, 23);
+            this.btnMostrarClientes.Size = new System.Drawing.Size(111, 23);
             this.btnMostrarClientes.TabIndex = 13;
             this.btnMostrarClientes.Text = "Mostrar Dados";
             this.btnMostrarClientes.UseVisualStyleBackColor = true;
@@ -419,9 +444,9 @@
             // 
             // btnExcluirCliente
             // 
-            this.btnExcluirCliente.Location = new System.Drawing.Point(142, 193);
+            this.btnExcluirCliente.Location = new System.Drawing.Point(131, 193);
             this.btnExcluirCliente.Name = "btnExcluirCliente";
-            this.btnExcluirCliente.Size = new System.Drawing.Size(113, 23);
+            this.btnExcluirCliente.Size = new System.Drawing.Size(111, 23);
             this.btnExcluirCliente.TabIndex = 12;
             this.btnExcluirCliente.Text = "Excluir";
             this.btnExcluirCliente.UseVisualStyleBackColor = true;
@@ -431,7 +456,7 @@
             // 
             this.btnAdicionarCliente.Location = new System.Drawing.Point(14, 193);
             this.btnAdicionarCliente.Name = "btnAdicionarCliente";
-            this.btnAdicionarCliente.Size = new System.Drawing.Size(113, 23);
+            this.btnAdicionarCliente.Size = new System.Drawing.Size(111, 23);
             this.btnAdicionarCliente.TabIndex = 11;
             this.btnAdicionarCliente.Text = "Adicionar";
             this.btnAdicionarCliente.UseVisualStyleBackColor = true;
@@ -527,11 +552,11 @@
             // dgvKits
             // 
             this.dgvKits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKits.Location = new System.Drawing.Point(17, 175);
+            this.dgvKits.Location = new System.Drawing.Point(17, 163);
             this.dgvKits.Name = "dgvKits";
             this.dgvKits.RowHeadersWidth = 51;
             this.dgvKits.RowTemplate.Height = 24;
-            this.dgvKits.Size = new System.Drawing.Size(499, 245);
+            this.dgvKits.Size = new System.Drawing.Size(499, 257);
             this.dgvKits.TabIndex = 47;
             // 
             // btnSairKits
@@ -795,14 +820,12 @@
         private System.Windows.Forms.TextBox tbCliente;
         private System.Windows.Forms.TextBox tbTelefone;
         private System.Windows.Forms.TextBox tbEndereco;
-        private System.Windows.Forms.TextBox tbCodigo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TabPage TabelaKits;
         private System.Windows.Forms.TabPage TabelaAcessos;
-        private System.Windows.Forms.TextBox tbModuloInstalado;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DataGridView dgvKits;
         private System.Windows.Forms.Button btnSairKits;
@@ -827,6 +850,10 @@
         private System.Windows.Forms.Label lblColunas;
         private System.Windows.Forms.TextBox tbToDelete;
         private System.Windows.Forms.ComboBox cbNome;
+        private System.Windows.Forms.ComboBox cbModuloInstalado;
+        private System.Windows.Forms.TextBox tbCodigo;
+        private System.Windows.Forms.Button btnLimparClientes;
+        private System.Windows.Forms.Button btnLimparLogin;
     }
 }
 

@@ -41,6 +41,62 @@ namespace BancoDeDados_PI
             return count;
         }
 
+        public int countEntriesCB(string tabela, string coluna, ComboBox campo, SqlCeConnection cn)
+        {
+            string check = "SELECT COUNT(*) from " + tabela + " WHERE " + coluna + "='" + campo.GetItemText(campo.SelectedItem) + "'";
+            SqlCeCommand command = new SqlCeCommand(check, cn);
+            int count = (int)command.ExecuteScalar();
+            return count;
+        }
+
+        public void deleteEntriesCB(string tabela, string coluna, ComboBox campo, DataGridView grid)
+        {
+            SqlCeConnection cn = new SqlCeConnection(stringConexao());
+            if (cn.State == ConnectionState.Closed)
+            {
+                cn.Open();
+            }
+
+            int Count = countEntriesCB(tabela, coluna, campo, cn);
+
+            if (Count == 0)
+            {
+                MessageBox.Show("Entrada nao existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                campo.Focus();
+                showDataBase(tabela, grid);
+                cn.Close();
+            }
+            else
+            {
+                if (campo.Text == "")
+                {
+                    MessageBox.Show("Para deletar um dado, digite o codigo do cliente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    campo.Focus();
+                    showDataBase(tabela, grid);
+                    cn.Close();
+                }
+                else
+                {
+                    string st = "DELETE FROM " + tabela + " WHERE " + coluna + "='" + campo.GetItemText(campo.SelectedItem) + "'";
+                    SqlCeCommand sqlcom = new SqlCeCommand(st, cn);
+                    try
+                    {
+                        sqlcom.ExecuteNonQuery();
+                        MessageBox.Show("Delete successful", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        campo.Text = "";
+                        campo.Focus();
+                        showDataBase(tabela, grid);
+                        cn.Close();
+                    }
+                    catch (SqlCeException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        cn.Close();
+                    }
+                }
+            }
+        }
+
         public void deleteEntries(string tabela, string coluna, TextBox campo, DataGridView grid)
         {
             SqlCeConnection cn = new SqlCeConnection(stringConexao());
@@ -319,15 +375,12 @@ namespace BancoDeDados_PI
             string selectedItem = cbNome.SelectedItem.ToString();
             int index = cbNome.FindString(selectedItem);
 
-            if (index == -1)
+            if (index <= 0)
             {
-                MessageBox.Show("Selecione um item antes de prosseguir", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cbNome.Focus();
                 selected = false;
             }
             else
             {
-                string dado = selectedItem;
                 selected = true;
             }
 
@@ -480,7 +533,7 @@ namespace BancoDeDados_PI
 
         private void btnExcluir_Click_1(object sender, EventArgs e)
         {
-            deleteEntries("TabelaLogin", "Nome", tbNome, dgvLogin);
+            deleteEntriesCB("TabelaLogin", "Nome", cbNome, dgvLogin);
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -572,8 +625,21 @@ namespace BancoDeDados_PI
 
         private void btnAdicionarCliente_Click(object sender, EventArgs e)
         {
+            bool selected = false;
+            string selectedItem = cbModuloInstalado.SelectedItem.ToString();
+            int index = cbModuloInstalado.FindString(selectedItem);
+
+            if (index <= 0)
+            {
+                selected = false;
+            }
+            else
+            {
+                selected = true;
+            }
+
             if ((tbCodigo.Text == "")           ||
-                (tbModuloInstalado.Text == "")  ||
+                (selected == false)             ||
                 (tbCliente.Text == "")          ||
                 (tbTelefone.Text == "")         ||
                 (tbCelular.Text == "")          ||
@@ -584,7 +650,7 @@ namespace BancoDeDados_PI
             {
                 MessageBox.Show("Preencha todos os campos antes de adicionar uma entrada!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if      (tbCodigo.Text == "")           { tbCodigo.Focus();             }
-                else if (tbModuloInstalado.Text == "")  { tbModuloInstalado.Focus();    }
+                else if (selected == false)             { cbModuloInstalado.Focus();    }
                 else if (tbCliente.Text == "")          { tbCliente.Focus();            }
                 else if (tbTelefone.Text == "")         { tbTelefone.Focus();           }
                 else if (tbCelular.Text == "")          { tbCelular.Focus();            }
@@ -629,11 +695,10 @@ namespace BancoDeDados_PI
                 {
                     try
                     {
-                        CarregarLinhaTabelaClientes(tbCodigo.Text, tbModuloInstalado.Text, tbCliente.Text, tbTelefone.Text,
+                        CarregarLinhaTabelaClientes(tbCodigo.Text, selectedItem, tbCliente.Text, tbTelefone.Text,
                             tbCelular.Text, tbEndereco.Text, tbComplemento.Text, tbCep.Text, tbCidade.Text, tbUF.Text, cn);
 
                         tbCodigo.Text = "";
-                        tbModuloInstalado.Text = "";
                         tbCliente.Text = "";
                         tbTelefone.Text = "";
                         tbCelular.Text = "";
@@ -736,9 +801,7 @@ namespace BancoDeDados_PI
 
         private void btnShowNames_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            SelectEntries selectentries = new SelectEntries();
-            selectentries.ShowDialog();
+            
 
             /*SqlCeConnection cn = new SqlCeConnection(stringConexao());
             SqlCeCommand command = new SqlCeCommand("SELECT * FROM TabelaClientes", cn);
@@ -754,6 +817,7 @@ namespace BancoDeDados_PI
         private void TabelaLogin_Enter(object sender, EventArgs e)
         {
             cbNome.Items.Clear();
+            cbNome.Items.Add("------");
             SqlCeConnection cn = new SqlCeConnection(stringConexao());
             SqlCeCommand command = new SqlCeCommand("SELECT * FROM TabelaClientes", cn);
             SqlCeDataAdapter da = new SqlCeDataAdapter(command);
@@ -763,6 +827,45 @@ namespace BancoDeDados_PI
             {
                 cbNome.Items.Add(dr["Nome"].ToString());
             }
+            cbNome.SelectedIndex = 0;
+        }
+
+        private void TabelaClientes_Enter(object sender, EventArgs e)
+        {
+            cbModuloInstalado.Items.Clear();
+            cbModuloInstalado.Items.Add("------");
+            SqlCeConnection cn = new SqlCeConnection(stringConexao());
+            SqlCeCommand command = new SqlCeCommand("SELECT * FROM TabelaKits", cn);
+            SqlCeDataAdapter da = new SqlCeDataAdapter(command);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                cbModuloInstalado.Items.Add(dr["CodigoKit"].ToString());
+            }
+            cbModuloInstalado.SelectedIndex = 0;
+        }
+
+        private void btnLimparClientes_Click(object sender, EventArgs e)
+        {
+            tbCodigo.Text = "";
+            tbCliente.Text = "";
+            tbTelefone.Text = "";
+            tbCelular.Text = "";
+            tbEndereco.Text = "";
+            tbComplemento.Text = "";
+            tbCep.Text = "";
+            tbCidade.Text = "";
+            tbUF.Text = "";
+            cbModuloInstalado.SelectedIndex = 0;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tbEmail.Text = "";
+            tbLogin.Text = "";
+            tbSenha.Text = "";
+            cbNome.SelectedIndex = 0;
         }
     }
 }

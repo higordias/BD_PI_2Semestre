@@ -34,4 +34,3 @@ C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\Ban
 C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\BancoDeDados_PI.csproj.CopyComplete
 C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\BancoDeDados_PI.exe
 C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\BancoDeDados_PI.pdb
-C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\BancoDeDados_PI.SelectEntries.resources
