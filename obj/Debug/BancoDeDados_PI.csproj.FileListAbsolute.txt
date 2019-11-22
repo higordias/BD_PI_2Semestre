@@ -34,3 +34,15 @@ C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\Ban
 C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\BancoDeDados_PI.csproj.CopyComplete
 C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\BancoDeDados_PI.exe
 C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre\obj\Debug\BancoDeDados_PI.pdb
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\bin\Debug\BancoDeDados_PI.exe.config
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\bin\Debug\BancoDeDados_PI.exe
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\bin\Debug\BancoDeDados_PI.pdb
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\bin\Debug\System.Data.SqlServerCe.dll
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\bin\Debug\PT\System.Data.SqlServerCe.resources.dll
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\obj\Debug\BancoDeDados_PI.csprojAssemblyReference.cache
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\obj\Debug\BancoDeDados_PI.BDHomeAutomation.resources
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\obj\Debug\BancoDeDados_PI.Properties.Resources.resources
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\obj\Debug\BancoDeDados_PI.csproj.GenerateResource.cache
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\obj\Debug\BancoDeDados_PI.csproj.CopyComplete
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\obj\Debug\BancoDeDados_PI.exe
+C:\Users\higor\Desktop\Fatec\PIC\2 semestre\Codigo\BD_PI_2Semestre_git\obj\Debug\BancoDeDados_PI.pdb

@@ -739,7 +739,6 @@
             this.btnExcluirTabela.TabIndex = 46;
             this.btnExcluirTabela.Text = "Excluir Tabela";
             this.btnExcluirTabela.UseVisualStyleBackColor = true;
-            this.btnExcluirTabela.Click += new System.EventHandler(this.btnExcluirTabela_Click);
             // 
             // button10
             // 
@@ -749,7 +748,6 @@
             this.button10.TabIndex = 45;
             this.button10.Text = "Adicionar";
             this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button9
             // 
