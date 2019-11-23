@@ -325,6 +325,7 @@ namespace BancoDeDados_PI
                         tbEmail.Text = "";
                         tbLogin.Text = "";
                         tbSenha.Text = "";
+                        cbNome.SelectedIndex = 0;
                         showDataBase("TabelaLogin", dgvLogin);
                     }
                     catch (Exception ex)
@@ -460,6 +461,7 @@ namespace BancoDeDados_PI
                         tbCep.Text          = "";
                         tbCidade.Text       = "";
                         tbUF.Text           = "";
+                        cbModuloInstalado.SelectedIndex = 0;
                         showDataBase("TabelaClientes", dgvClientes);
                     }
                     catch (Exception ex)
@@ -675,6 +677,19 @@ namespace BancoDeDados_PI
                     tbEmail.Text = dr["Email"].ToString();
                 }
             }
+        }
+
+        private void excluirTabela(string tabela)
+        {
+            SqlCeConnection cn = new SqlCeConnection(stringConexao());
+            if (cn.State == ConnectionState.Closed)
+            {
+                cn.Open();
+            }
+            string sqlCommand = "DROP TABLE " + tabela;
+            SqlCeCommand command = new SqlCeCommand(sqlCommand, cn);
+            command.ExecuteNonQuery();
+            cn.Close();
         }
     }
 }
