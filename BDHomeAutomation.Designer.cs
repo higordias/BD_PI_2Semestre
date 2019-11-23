@@ -46,6 +46,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.TabelaClientes = new System.Windows.Forms.TabPage();
+            this.tbEmailCliente = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.btnLimparClientes = new System.Windows.Forms.Button();
             this.cbModuloInstalado = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -88,11 +90,10 @@
             this.label18 = new System.Windows.Forms.Label();
             this.TabelaAcessos = new System.Windows.Forms.TabPage();
             this.GerenciarTabelas = new System.Windows.Forms.TabPage();
-            this.tbToDelete = new System.Windows.Forms.TextBox();
+            this.tbClienteEmail = new System.Windows.Forms.TextBox();
             this.lblColunas = new System.Windows.Forms.Label();
-            this.btnConcluir = new System.Windows.Forms.Button();
-            this.btnProximo = new System.Windows.Forms.Button();
-            this.tbNomeColuna = new System.Windows.Forms.TextBox();
+            this.btnCompletar = new System.Windows.Forms.Button();
+            this.tbNomeCliente = new System.Windows.Forms.TextBox();
             this.btnExcluirTabela = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
@@ -113,10 +114,11 @@
             this.tabControl1.Controls.Add(this.TabelaKits);
             this.tabControl1.Controls.Add(this.TabelaAcessos);
             this.tabControl1.Controls.Add(this.GerenciarTabelas);
-            this.tabControl1.Location = new System.Drawing.Point(-2, 0);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(538, 463);
+            this.tabControl1.Size = new System.Drawing.Size(531, 461);
             this.tabControl1.TabIndex = 0;
             // 
             // TabelaLogin
@@ -138,7 +140,7 @@
             this.TabelaLogin.Location = new System.Drawing.Point(4, 25);
             this.TabelaLogin.Name = "TabelaLogin";
             this.TabelaLogin.Padding = new System.Windows.Forms.Padding(3);
-            this.TabelaLogin.Size = new System.Drawing.Size(530, 434);
+            this.TabelaLogin.Size = new System.Drawing.Size(523, 432);
             this.TabelaLogin.TabIndex = 0;
             this.TabelaLogin.Text = "Tabela Login";
             this.TabelaLogin.UseVisualStyleBackColor = true;
@@ -152,7 +154,7 @@
             this.btnLimparLogin.TabIndex = 16;
             this.btnLimparLogin.Text = "Limpar";
             this.btnLimparLogin.UseVisualStyleBackColor = true;
-            this.btnLimparLogin.Click += new System.EventHandler(this.button1_Click);
+            this.btnLimparLogin.Click += new System.EventHandler(this.btnLimparLogin_Click);
             // 
             // cbNome
             // 
@@ -161,6 +163,7 @@
             this.cbNome.Name = "cbNome";
             this.cbNome.Size = new System.Drawing.Size(301, 24);
             this.cbNome.TabIndex = 15;
+            this.cbNome.DropDownClosed += new System.EventHandler(this.cbNome_DropDownClosed);
             // 
             // dgvLogin
             // 
@@ -216,6 +219,7 @@
             // 
             this.tbEmail.Location = new System.Drawing.Point(62, 50);
             this.tbEmail.Name = "tbEmail";
+            this.tbEmail.ReadOnly = true;
             this.tbEmail.Size = new System.Drawing.Size(301, 22);
             this.tbEmail.TabIndex = 2;
             // 
@@ -271,6 +275,8 @@
             // 
             // TabelaClientes
             // 
+            this.TabelaClientes.Controls.Add(this.tbEmailCliente);
+            this.TabelaClientes.Controls.Add(this.label19);
             this.TabelaClientes.Controls.Add(this.btnLimparClientes);
             this.TabelaClientes.Controls.Add(this.cbModuloInstalado);
             this.TabelaClientes.Controls.Add(this.label14);
@@ -300,15 +306,31 @@
             this.TabelaClientes.Location = new System.Drawing.Point(4, 25);
             this.TabelaClientes.Name = "TabelaClientes";
             this.TabelaClientes.Padding = new System.Windows.Forms.Padding(3);
-            this.TabelaClientes.Size = new System.Drawing.Size(530, 434);
+            this.TabelaClientes.Size = new System.Drawing.Size(523, 432);
             this.TabelaClientes.TabIndex = 1;
             this.TabelaClientes.Text = "Tabela Clientes";
             this.TabelaClientes.UseVisualStyleBackColor = true;
             this.TabelaClientes.Enter += new System.EventHandler(this.TabelaClientes_Enter);
             // 
+            // tbEmailCliente
+            // 
+            this.tbEmailCliente.Location = new System.Drawing.Point(111, 102);
+            this.tbEmailCliente.Name = "tbEmailCliente";
+            this.tbEmailCliente.Size = new System.Drawing.Size(402, 22);
+            this.tbEmailCliente.TabIndex = 37;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(11, 105);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(42, 17);
+            this.label19.TabIndex = 38;
+            this.label19.Text = "Email";
+            // 
             // btnLimparClientes
             // 
-            this.btnLimparClientes.Location = new System.Drawing.Point(365, 193);
+            this.btnLimparClientes.Location = new System.Drawing.Point(364, 220);
             this.btnLimparClientes.Name = "btnLimparClientes";
             this.btnLimparClientes.Size = new System.Drawing.Size(70, 23);
             this.btnLimparClientes.TabIndex = 36;
@@ -335,11 +357,11 @@
             // dgvClientes
             // 
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClientes.Location = new System.Drawing.Point(14, 226);
+            this.dgvClientes.Location = new System.Drawing.Point(14, 255);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.RowHeadersWidth = 51;
             this.dgvClientes.RowTemplate.Height = 24;
-            this.dgvClientes.Size = new System.Drawing.Size(499, 198);
+            this.dgvClientes.Size = new System.Drawing.Size(499, 169);
             this.dgvClientes.TabIndex = 34;
             // 
             // tbCelular
@@ -360,7 +382,7 @@
             // 
             // tbComplemento
             // 
-            this.tbComplemento.Location = new System.Drawing.Point(111, 130);
+            this.tbComplemento.Location = new System.Drawing.Point(111, 157);
             this.tbComplemento.Name = "tbComplemento";
             this.tbComplemento.Size = new System.Drawing.Size(263, 22);
             this.tbComplemento.TabIndex = 7;
@@ -368,7 +390,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(11, 133);
+            this.label12.Location = new System.Drawing.Point(11, 160);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(94, 17);
             this.label12.TabIndex = 30;
@@ -376,7 +398,7 @@
             // 
             // tbUF
             // 
-            this.tbUF.Location = new System.Drawing.Point(417, 158);
+            this.tbUF.Location = new System.Drawing.Point(417, 185);
             this.tbUF.Name = "tbUF";
             this.tbUF.Size = new System.Drawing.Size(96, 22);
             this.tbUF.TabIndex = 10;
@@ -384,7 +406,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(388, 161);
+            this.label11.Location = new System.Drawing.Point(388, 188);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(26, 17);
             this.label11.TabIndex = 28;
@@ -392,7 +414,7 @@
             // 
             // tbCidade
             // 
-            this.tbCidade.Location = new System.Drawing.Point(111, 158);
+            this.tbCidade.Location = new System.Drawing.Point(111, 185);
             this.tbCidade.Name = "tbCidade";
             this.tbCidade.Size = new System.Drawing.Size(263, 22);
             this.tbCidade.TabIndex = 9;
@@ -400,7 +422,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(11, 161);
+            this.label10.Location = new System.Drawing.Point(11, 188);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 17);
             this.label10.TabIndex = 26;
@@ -408,7 +430,7 @@
             // 
             // tbCep
             // 
-            this.tbCep.Location = new System.Drawing.Point(417, 130);
+            this.tbCep.Location = new System.Drawing.Point(417, 157);
             this.tbCep.Name = "tbCep";
             this.tbCep.Size = new System.Drawing.Size(96, 22);
             this.tbCep.TabIndex = 8;
@@ -416,7 +438,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(380, 133);
+            this.label9.Location = new System.Drawing.Point(380, 160);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 17);
             this.label9.TabIndex = 24;
@@ -424,7 +446,7 @@
             // 
             // btnSairCliente
             // 
-            this.btnSairCliente.Location = new System.Drawing.Point(441, 193);
+            this.btnSairCliente.Location = new System.Drawing.Point(441, 220);
             this.btnSairCliente.Name = "btnSairCliente";
             this.btnSairCliente.Size = new System.Drawing.Size(70, 23);
             this.btnSairCliente.TabIndex = 14;
@@ -434,9 +456,9 @@
             // 
             // btnMostrarClientes
             // 
-            this.btnMostrarClientes.Location = new System.Drawing.Point(248, 193);
+            this.btnMostrarClientes.Location = new System.Drawing.Point(232, 220);
             this.btnMostrarClientes.Name = "btnMostrarClientes";
-            this.btnMostrarClientes.Size = new System.Drawing.Size(111, 23);
+            this.btnMostrarClientes.Size = new System.Drawing.Size(125, 23);
             this.btnMostrarClientes.TabIndex = 13;
             this.btnMostrarClientes.Text = "Mostrar Dados";
             this.btnMostrarClientes.UseVisualStyleBackColor = true;
@@ -444,9 +466,9 @@
             // 
             // btnExcluirCliente
             // 
-            this.btnExcluirCliente.Location = new System.Drawing.Point(131, 193);
+            this.btnExcluirCliente.Location = new System.Drawing.Point(123, 220);
             this.btnExcluirCliente.Name = "btnExcluirCliente";
-            this.btnExcluirCliente.Size = new System.Drawing.Size(111, 23);
+            this.btnExcluirCliente.Size = new System.Drawing.Size(102, 23);
             this.btnExcluirCliente.TabIndex = 12;
             this.btnExcluirCliente.Text = "Excluir";
             this.btnExcluirCliente.UseVisualStyleBackColor = true;
@@ -454,9 +476,9 @@
             // 
             // btnAdicionarCliente
             // 
-            this.btnAdicionarCliente.Location = new System.Drawing.Point(14, 193);
+            this.btnAdicionarCliente.Location = new System.Drawing.Point(14, 220);
             this.btnAdicionarCliente.Name = "btnAdicionarCliente";
-            this.btnAdicionarCliente.Size = new System.Drawing.Size(111, 23);
+            this.btnAdicionarCliente.Size = new System.Drawing.Size(102, 23);
             this.btnAdicionarCliente.TabIndex = 11;
             this.btnAdicionarCliente.Text = "Adicionar";
             this.btnAdicionarCliente.UseVisualStyleBackColor = true;
@@ -478,7 +500,7 @@
             // 
             // tbEndereco
             // 
-            this.tbEndereco.Location = new System.Drawing.Point(111, 102);
+            this.tbEndereco.Location = new System.Drawing.Point(111, 129);
             this.tbEndereco.Name = "tbEndereco";
             this.tbEndereco.Size = new System.Drawing.Size(402, 22);
             this.tbEndereco.TabIndex = 6;
@@ -493,7 +515,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 105);
+            this.label5.Location = new System.Drawing.Point(11, 132);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(69, 17);
             this.label5.TabIndex = 15;
@@ -544,7 +566,7 @@
             this.TabelaKits.Location = new System.Drawing.Point(4, 25);
             this.TabelaKits.Name = "TabelaKits";
             this.TabelaKits.Padding = new System.Windows.Forms.Padding(3);
-            this.TabelaKits.Size = new System.Drawing.Size(530, 434);
+            this.TabelaKits.Size = new System.Drawing.Size(523, 432);
             this.TabelaKits.TabIndex = 2;
             this.TabelaKits.Text = "Tabela Kits";
             this.TabelaKits.UseVisualStyleBackColor = true;
@@ -668,35 +690,34 @@
             this.TabelaAcessos.Location = new System.Drawing.Point(4, 25);
             this.TabelaAcessos.Name = "TabelaAcessos";
             this.TabelaAcessos.Padding = new System.Windows.Forms.Padding(3);
-            this.TabelaAcessos.Size = new System.Drawing.Size(530, 434);
+            this.TabelaAcessos.Size = new System.Drawing.Size(523, 432);
             this.TabelaAcessos.TabIndex = 4;
             this.TabelaAcessos.Text = "Tabela Acessos";
             this.TabelaAcessos.UseVisualStyleBackColor = true;
             // 
             // GerenciarTabelas
             // 
-            this.GerenciarTabelas.Controls.Add(this.tbToDelete);
+            this.GerenciarTabelas.Controls.Add(this.tbClienteEmail);
             this.GerenciarTabelas.Controls.Add(this.lblColunas);
-            this.GerenciarTabelas.Controls.Add(this.btnConcluir);
-            this.GerenciarTabelas.Controls.Add(this.btnProximo);
-            this.GerenciarTabelas.Controls.Add(this.tbNomeColuna);
+            this.GerenciarTabelas.Controls.Add(this.btnCompletar);
+            this.GerenciarTabelas.Controls.Add(this.tbNomeCliente);
             this.GerenciarTabelas.Controls.Add(this.btnExcluirTabela);
             this.GerenciarTabelas.Controls.Add(this.button10);
             this.GerenciarTabelas.Controls.Add(this.button9);
             this.GerenciarTabelas.Location = new System.Drawing.Point(4, 25);
             this.GerenciarTabelas.Name = "GerenciarTabelas";
             this.GerenciarTabelas.Padding = new System.Windows.Forms.Padding(3);
-            this.GerenciarTabelas.Size = new System.Drawing.Size(530, 434);
+            this.GerenciarTabelas.Size = new System.Drawing.Size(523, 432);
             this.GerenciarTabelas.TabIndex = 5;
             this.GerenciarTabelas.Text = "Gerenciar Tabelas";
             this.GerenciarTabelas.UseVisualStyleBackColor = true;
             // 
-            // tbToDelete
+            // tbClienteEmail
             // 
-            this.tbToDelete.Location = new System.Drawing.Point(30, 277);
-            this.tbToDelete.Name = "tbToDelete";
-            this.tbToDelete.Size = new System.Drawing.Size(259, 22);
-            this.tbToDelete.TabIndex = 51;
+            this.tbClienteEmail.Location = new System.Drawing.Point(27, 195);
+            this.tbClienteEmail.Name = "tbClienteEmail";
+            this.tbClienteEmail.Size = new System.Drawing.Size(259, 22);
+            this.tbClienteEmail.TabIndex = 51;
             // 
             // lblColunas
             // 
@@ -706,30 +727,21 @@
             this.lblColunas.Size = new System.Drawing.Size(0, 17);
             this.lblColunas.TabIndex = 50;
             // 
-            // btnConcluir
+            // btnCompletar
             // 
-            this.btnConcluir.Location = new System.Drawing.Point(292, 195);
-            this.btnConcluir.Name = "btnConcluir";
-            this.btnConcluir.Size = new System.Drawing.Size(113, 23);
-            this.btnConcluir.TabIndex = 49;
-            this.btnConcluir.Text = "Concluir";
-            this.btnConcluir.UseVisualStyleBackColor = true;
+            this.btnCompletar.Location = new System.Drawing.Point(292, 166);
+            this.btnCompletar.Name = "btnCompletar";
+            this.btnCompletar.Size = new System.Drawing.Size(113, 23);
+            this.btnCompletar.TabIndex = 48;
+            this.btnCompletar.Text = "Completar";
+            this.btnCompletar.UseVisualStyleBackColor = true;
             // 
-            // btnProximo
+            // tbNomeCliente
             // 
-            this.btnProximo.Location = new System.Drawing.Point(292, 166);
-            this.btnProximo.Name = "btnProximo";
-            this.btnProximo.Size = new System.Drawing.Size(113, 23);
-            this.btnProximo.TabIndex = 48;
-            this.btnProximo.Text = "Proximo";
-            this.btnProximo.UseVisualStyleBackColor = true;
-            // 
-            // tbNomeColuna
-            // 
-            this.tbNomeColuna.Location = new System.Drawing.Point(27, 167);
-            this.tbNomeColuna.Name = "tbNomeColuna";
-            this.tbNomeColuna.Size = new System.Drawing.Size(259, 22);
-            this.tbNomeColuna.TabIndex = 47;
+            this.tbNomeCliente.Location = new System.Drawing.Point(27, 167);
+            this.tbNomeCliente.Name = "tbNomeCliente";
+            this.tbNomeCliente.Size = new System.Drawing.Size(259, 22);
+            this.tbNomeCliente.TabIndex = 47;
             // 
             // btnExcluirTabela
             // 
@@ -842,16 +854,17 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button btnExcluirTabela;
-        private System.Windows.Forms.TextBox tbNomeColuna;
-        private System.Windows.Forms.Button btnProximo;
-        private System.Windows.Forms.Button btnConcluir;
+        private System.Windows.Forms.TextBox tbNomeCliente;
+        private System.Windows.Forms.Button btnCompletar;
         private System.Windows.Forms.Label lblColunas;
-        private System.Windows.Forms.TextBox tbToDelete;
+        private System.Windows.Forms.TextBox tbClienteEmail;
         private System.Windows.Forms.ComboBox cbNome;
         private System.Windows.Forms.ComboBox cbModuloInstalado;
         private System.Windows.Forms.TextBox tbCodigo;
         private System.Windows.Forms.Button btnLimparClientes;
         private System.Windows.Forms.Button btnLimparLogin;
+        private System.Windows.Forms.TextBox tbEmailCliente;
+        private System.Windows.Forms.Label label19;
     }
 }
 
