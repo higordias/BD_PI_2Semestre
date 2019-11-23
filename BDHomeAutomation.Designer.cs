@@ -151,7 +151,7 @@
             this.btnLimparLogin.Location = new System.Drawing.Point(373, 114);
             this.btnLimparLogin.Name = "btnLimparLogin";
             this.btnLimparLogin.Size = new System.Drawing.Size(62, 23);
-            this.btnLimparLogin.TabIndex = 16;
+            this.btnLimparLogin.TabIndex = 7;
             this.btnLimparLogin.Text = "Limpar";
             this.btnLimparLogin.UseVisualStyleBackColor = true;
             this.btnLimparLogin.Click += new System.EventHandler(this.btnLimparLogin_Click);
@@ -162,7 +162,7 @@
             this.cbNome.Location = new System.Drawing.Point(62, 18);
             this.cbNome.Name = "cbNome";
             this.cbNome.Size = new System.Drawing.Size(301, 24);
-            this.cbNome.TabIndex = 15;
+            this.cbNome.TabIndex = 1;
             this.cbNome.DropDownClosed += new System.EventHandler(this.cbNome_DropDownClosed);
             // 
             // dgvLogin
@@ -190,7 +190,7 @@
             this.btnMostrarDados.Location = new System.Drawing.Point(373, 82);
             this.btnMostrarDados.Name = "btnMostrarDados";
             this.btnMostrarDados.Size = new System.Drawing.Size(130, 23);
-            this.btnMostrarDados.TabIndex = 7;
+            this.btnMostrarDados.TabIndex = 6;
             this.btnMostrarDados.Text = "Mostrar Dados";
             this.btnMostrarDados.UseVisualStyleBackColor = true;
             this.btnMostrarDados.Click += new System.EventHandler(this.btnMostrarDados_Click);
@@ -200,7 +200,7 @@
             this.btnExcluir.Location = new System.Drawing.Point(373, 50);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(130, 23);
-            this.btnExcluir.TabIndex = 6;
+            this.btnExcluir.TabIndex = 5;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click_1);
@@ -210,7 +210,7 @@
             this.btnAdicionar.Location = new System.Drawing.Point(373, 18);
             this.btnAdicionar.Name = "btnAdicionar";
             this.btnAdicionar.Size = new System.Drawing.Size(130, 23);
-            this.btnAdicionar.TabIndex = 5;
+            this.btnAdicionar.TabIndex = 4;
             this.btnAdicionar.Text = "Adicionar";
             this.btnAdicionar.UseVisualStyleBackColor = true;
             this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click_1);
@@ -228,14 +228,14 @@
             this.tbLogin.Location = new System.Drawing.Point(62, 82);
             this.tbLogin.Name = "tbLogin";
             this.tbLogin.Size = new System.Drawing.Size(301, 22);
-            this.tbLogin.TabIndex = 3;
+            this.tbLogin.TabIndex = 2;
             // 
             // tbSenha
             // 
             this.tbSenha.Location = new System.Drawing.Point(62, 114);
             this.tbSenha.Name = "tbSenha";
             this.tbSenha.Size = new System.Drawing.Size(301, 22);
-            this.tbSenha.TabIndex = 4;
+            this.tbSenha.TabIndex = 3;
             // 
             // label3
             // 
@@ -317,7 +317,7 @@
             this.tbEmailCliente.Location = new System.Drawing.Point(111, 102);
             this.tbEmailCliente.Name = "tbEmailCliente";
             this.tbEmailCliente.Size = new System.Drawing.Size(402, 22);
-            this.tbEmailCliente.TabIndex = 37;
+            this.tbEmailCliente.TabIndex = 6;
             // 
             // label19
             // 
@@ -333,7 +333,7 @@
             this.btnLimparClientes.Location = new System.Drawing.Point(364, 220);
             this.btnLimparClientes.Name = "btnLimparClientes";
             this.btnLimparClientes.Size = new System.Drawing.Size(70, 23);
-            this.btnLimparClientes.TabIndex = 36;
+            this.btnLimparClientes.TabIndex = 15;
             this.btnLimparClientes.Text = "Limpar";
             this.btnLimparClientes.UseVisualStyleBackColor = true;
             this.btnLimparClientes.Click += new System.EventHandler(this.btnLimparClientes_Click);
@@ -343,7 +343,7 @@
             this.cbModuloInstalado.Location = new System.Drawing.Point(398, 17);
             this.cbModuloInstalado.Name = "cbModuloInstalado";
             this.cbModuloInstalado.Size = new System.Drawing.Size(115, 24);
-            this.cbModuloInstalado.TabIndex = 0;
+            this.cbModuloInstalado.TabIndex = 2;
             // 
             // label14
             // 
@@ -385,7 +385,7 @@
             this.tbComplemento.Location = new System.Drawing.Point(111, 157);
             this.tbComplemento.Name = "tbComplemento";
             this.tbComplemento.Size = new System.Drawing.Size(263, 22);
-            this.tbComplemento.TabIndex = 7;
+            this.tbComplemento.TabIndex = 8;
             // 
             // label12
             // 
@@ -401,7 +401,7 @@
             this.tbUF.Location = new System.Drawing.Point(417, 185);
             this.tbUF.Name = "tbUF";
             this.tbUF.Size = new System.Drawing.Size(96, 22);
-            this.tbUF.TabIndex = 10;
+            this.tbUF.TabIndex = 11;
             // 
             // label11
             // 
@@ -417,7 +417,7 @@
             this.tbCidade.Location = new System.Drawing.Point(111, 185);
             this.tbCidade.Name = "tbCidade";
             this.tbCidade.Size = new System.Drawing.Size(263, 22);
-            this.tbCidade.TabIndex = 9;
+            this.tbCidade.TabIndex = 10;
             // 
             // label10
             // 
@@ -433,7 +433,7 @@
             this.tbCep.Location = new System.Drawing.Point(417, 157);
             this.tbCep.Name = "tbCep";
             this.tbCep.Size = new System.Drawing.Size(96, 22);
-            this.tbCep.TabIndex = 8;
+            this.tbCep.TabIndex = 9;
             // 
             // label9
             // 
@@ -449,7 +449,7 @@
             this.btnSairCliente.Location = new System.Drawing.Point(441, 220);
             this.btnSairCliente.Name = "btnSairCliente";
             this.btnSairCliente.Size = new System.Drawing.Size(70, 23);
-            this.btnSairCliente.TabIndex = 14;
+            this.btnSairCliente.TabIndex = 16;
             this.btnSairCliente.Text = "Sair";
             this.btnSairCliente.UseVisualStyleBackColor = true;
             this.btnSairCliente.Click += new System.EventHandler(this.btnSairCliente_Click);
@@ -459,7 +459,7 @@
             this.btnMostrarClientes.Location = new System.Drawing.Point(232, 220);
             this.btnMostrarClientes.Name = "btnMostrarClientes";
             this.btnMostrarClientes.Size = new System.Drawing.Size(125, 23);
-            this.btnMostrarClientes.TabIndex = 13;
+            this.btnMostrarClientes.TabIndex = 14;
             this.btnMostrarClientes.Text = "Mostrar Dados";
             this.btnMostrarClientes.UseVisualStyleBackColor = true;
             this.btnMostrarClientes.Click += new System.EventHandler(this.btnMostrarClientes_Click);
@@ -469,7 +469,7 @@
             this.btnExcluirCliente.Location = new System.Drawing.Point(123, 220);
             this.btnExcluirCliente.Name = "btnExcluirCliente";
             this.btnExcluirCliente.Size = new System.Drawing.Size(102, 23);
-            this.btnExcluirCliente.TabIndex = 12;
+            this.btnExcluirCliente.TabIndex = 13;
             this.btnExcluirCliente.Text = "Excluir";
             this.btnExcluirCliente.UseVisualStyleBackColor = true;
             this.btnExcluirCliente.Click += new System.EventHandler(this.btnExcluirCliente_Click);
@@ -479,7 +479,7 @@
             this.btnAdicionarCliente.Location = new System.Drawing.Point(14, 220);
             this.btnAdicionarCliente.Name = "btnAdicionarCliente";
             this.btnAdicionarCliente.Size = new System.Drawing.Size(102, 23);
-            this.btnAdicionarCliente.TabIndex = 11;
+            this.btnAdicionarCliente.TabIndex = 12;
             this.btnAdicionarCliente.Text = "Adicionar";
             this.btnAdicionarCliente.UseVisualStyleBackColor = true;
             this.btnAdicionarCliente.Click += new System.EventHandler(this.btnAdicionarCliente_Click);
@@ -503,7 +503,7 @@
             this.tbEndereco.Location = new System.Drawing.Point(111, 129);
             this.tbEndereco.Name = "tbEndereco";
             this.tbEndereco.Size = new System.Drawing.Size(402, 22);
-            this.tbEndereco.TabIndex = 6;
+            this.tbEndereco.TabIndex = 7;
             // 
             // tbCodigo
             // 
