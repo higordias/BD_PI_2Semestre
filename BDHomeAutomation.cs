@@ -12,7 +12,7 @@ namespace BancoDeDados_PI
 {
     public partial class BDHomeAutomation : Form
     {
-        string dir_projeto = System.AppContext.BaseDirectory;
+        string dir_projeto = System.AppContext.BaseDirectory; //variable that holds the database path
         List<string> colunas = new List<string>();
 
         public BDHomeAutomation()
@@ -20,19 +20,14 @@ namespace BancoDeDados_PI
             InitializeComponent();
         }
 
-        private void excluirTabela(string tabela)
-        {
-            SqlCeConnection cn = new SqlCeConnection(stringConexao());
-            if (cn.State == ConnectionState.Closed)
-            {
-                cn.Open();
-            }
-            string sqlCommand = "DROP TABLE " + tabela;
-            SqlCeCommand command = new SqlCeCommand(sqlCommand, cn);
-            command.ExecuteNonQuery();
-            cn.Close();
-        }
-
+        /**
+         * countEntries is used to count the number of entries a certain data has in a table
+         * @tabela: table's name where the value is
+         * @coluna: column's name
+         * @campo: field in the form where the value is typed
+         * @cn: sql database connection
+         * @return: the number of entries
+         **/
         public int countEntries(string tabela, string coluna, TextBox campo, SqlCeConnection cn)
         {
             string check = "SELECT COUNT(*) from " + tabela + " WHERE " + coluna + "='" + campo.Text + "'";
@@ -41,62 +36,13 @@ namespace BancoDeDados_PI
             return count;
         }
 
-        public int countEntriesCB(string tabela, string coluna, ComboBox campo, SqlCeConnection cn)
-        {
-            string check = "SELECT COUNT(*) from " + tabela + " WHERE " + coluna + "='" + campo.GetItemText(campo.SelectedItem) + "'";
-            SqlCeCommand command = new SqlCeCommand(check, cn);
-            int count = (int)command.ExecuteScalar();
-            return count;
-        }
-
-        public void deleteEntriesCB(string tabela, string coluna, ComboBox campo, DataGridView grid)
-        {
-            SqlCeConnection cn = new SqlCeConnection(stringConexao());
-            if (cn.State == ConnectionState.Closed)
-            {
-                cn.Open();
-            }
-
-            int Count = countEntriesCB(tabela, coluna, campo, cn);
-
-            if (Count == 0)
-            {
-                MessageBox.Show("Entrada nao existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                campo.Focus();
-                showDataBase(tabela, grid);
-                cn.Close();
-            }
-            else
-            {
-                if (campo.Text == "")
-                {
-                    MessageBox.Show("Para deletar um dado, digite o codigo do cliente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    campo.Focus();
-                    showDataBase(tabela, grid);
-                    cn.Close();
-                }
-                else
-                {
-                    string st = "DELETE FROM " + tabela + " WHERE " + coluna + "='" + campo.GetItemText(campo.SelectedItem) + "'";
-                    SqlCeCommand sqlcom = new SqlCeCommand(st, cn);
-                    try
-                    {
-                        sqlcom.ExecuteNonQuery();
-                        MessageBox.Show("Delete successful", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        campo.Text = "";
-                        campo.Focus();
-                        showDataBase(tabela, grid);
-                        cn.Close();
-                    }
-                    catch (SqlCeException ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        cn.Close();
-                    }
-                }
-            }
-        }
-
+        /**
+         * deleteEntries is used to delete a certain data from a table
+         * @tabela: table's name where the value is
+         * @coluna: column's name
+         * @campo: field in the form where the value is typed
+         * @grid: grid to show the values before deleting the entry
+         **/
         public void deleteEntries(string tabela, string coluna, TextBox campo, DataGridView grid)
         {
             SqlCeConnection cn = new SqlCeConnection(stringConexao());
@@ -112,16 +58,14 @@ namespace BancoDeDados_PI
                 MessageBox.Show("Entrada nao existe", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 campo.Focus();
                 showDataBase(tabela, grid);
-                cn.Close();
             }
             else
             {
                 if (campo.Text == "")
                 {
-                    MessageBox.Show("Para deletar um dado, digite o codigo do cliente!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Digite a entrada a ser deletada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     campo.Focus();
                     showDataBase(tabela, grid);
-                    cn.Close();
                 }
                 else
                 {
@@ -134,17 +78,23 @@ namespace BancoDeDados_PI
                         campo.Text = "";
                         campo.Focus();
                         showDataBase(tabela, grid);
-                        cn.Close();
                     }
                     catch (SqlCeException ex)
                     {
                         MessageBox.Show(ex.Message);
-                        cn.Close();
                     }
                 }
             }
         }
 
+        /**
+         * CarregarLinhaTabelaLogin is used to add entries to TabelaLogin
+         * @nome: client's name
+         * @email: client's email
+         * @login: client's login
+         * @senha: client's password
+         * @cn: sql database connection
+         **/
         private void CarregarLinhaTabelaLogin(string nome, string email, string login, string senha, SqlCeConnection cn)
         {
             string infoHex = "";
@@ -153,8 +103,8 @@ namespace BancoDeDados_PI
 
             SqlCeCommand cmd;
             string sqlLogin = "insert into TabelaLogin "
-                        + "(nome, email, login, senha) "
-                        + "values (@Nome, @Email, @Login, @Senha)";
+                            + "(nome, email, login, senha) "
+                            + "values (@Nome, @Email, @Login, @Senha)";
             try
             {
                 cmd = new SqlCeCommand(sqlLogin, cn);
@@ -174,15 +124,31 @@ namespace BancoDeDados_PI
             }
         }
 
+        /**
+         * CarregarLinhaTabelaClientes is used to add entries to TabelaClientes
+         * @codigoCliente: client's code
+         * @moduloInstalado: client's installed kit
+         * @nome: client's nome
+         * @telefone: client's phone number
+         * @celular: client's cell number
+         * @email: client's email
+         * @endereco: client's address
+         * @complemento: client's address complement
+         * @CEP: client's zip code
+         * @cidade: client's city
+         * @estado: client's state
+         * @cn: sql database connection
+         **/
         private void CarregarLinhaTabelaClientes(string codigoCliente, string moduloInstalado, string nome, string telefone,
-            string celular, string endereco, string complemento, string CEP, string cidade, string estado, SqlCeConnection cn)
+                                                 string celular, string email, string endereco, string complemento, string CEP,
+                                                 string cidade, string estado, SqlCeConnection cn)
         {
 
             SqlCeCommand cmd;
             string sqlLogin = "insert into TabelaClientes "
-                        + "(codigoCliente, moduloInstalado, nome, telefone, celular, endereco, complemento, CEP, cidade, estado) "
-                        + "values (@CodigoCliente, @ModuloInstalado, @Nome, @Telefone, @Celular, @Endereco, @Complemento, @CEP, "
-                        + "@Cidade, @Estado)";
+                            + "(codigoCliente, moduloInstalado, nome, telefone, celular, email, endereco, complemento, CEP, cidade, estado) "
+                            + "values (@CodigoCliente, @ModuloInstalado, @Nome, @Telefone, @Celular, @Email, @Endereco, @Complemento, "
+                            + "@CEP, @Cidade, @Estado)";
             try
             {
                 cmd = new SqlCeCommand(sqlLogin, cn);
@@ -191,6 +157,7 @@ namespace BancoDeDados_PI
                 cmd.Parameters.AddWithValue("@Nome", nome);
                 cmd.Parameters.AddWithValue("@Telefone", telefone);
                 cmd.Parameters.AddWithValue("@Celular", celular);
+                cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Endereco", endereco);
                 cmd.Parameters.AddWithValue("@Complemento", complemento);
                 cmd.Parameters.AddWithValue("@CEP", CEP);
@@ -208,12 +175,20 @@ namespace BancoDeDados_PI
             }
         }
 
+        /**
+         * CarregarLinhaTabelaKits is used to add entries to TabelaKits
+         * @codigoKit: kit's code
+         * @componente1: name of the component 1
+         * @componente2: name of the component 2
+         * @componente3: name of the component 3
+         * @cn: sql database connection
+         **/
         private void CarregarLinhaTabelaKits(string codigoKit, string componente1, string componente2, string componente3, SqlCeConnection cn)
         {
             SqlCeCommand cmd;
             string sqlKits = "insert into TabelaKits "
-                        + "(codigoKit, componente1, componente2, componente3) "
-                        + "values (@CodigoKit, @Componente1, @Componente2, @Componente3)";
+                           + "(codigoKit, componente1, componente2, componente3) "
+                           + "values (@CodigoKit, @Componente1, @Componente2, @Componente3)";
             try
             {
                 cmd = new SqlCeCommand(sqlKits, cn);
@@ -233,7 +208,11 @@ namespace BancoDeDados_PI
             }
         }
 
-
+        /**
+         * showDataBase will load the database and show it in a grid
+         * @tabela: table's name
+         * @grid: grid where the table will be showed
+         **/
         private void showDataBase(string tabela, DataGridView grid)
         {
             SqlCeConnection cn = new SqlCeConnection(stringConexao());
@@ -268,14 +247,17 @@ namespace BancoDeDados_PI
             }
         }
 
-        private string stringConexao()
+        /**
+         * stringConexao connects to the database
+         **/
+        public string stringConexao()
         {
             string connectionString = "";
             try
             {
                 string nomeArquivo = @dir_projeto + "\\DB_SmartHomeAutomation.sdf";
                 string senha = "";
-                connectionString = string.Format("DataSource=\"{0}\"; Password='{1}'", nomeArquivo, senha);
+                connectionString = string.Format("DataSource=\"{0}\"; Password='HomeAutomationDB'", nomeArquivo, senha);
             }
             catch (Exception ex)
             {
@@ -284,102 +266,24 @@ namespace BancoDeDados_PI
             return connectionString;
         }
 
-
-        /*private void btnExcluir_Click(object sender, EventArgs e)
-        {
-            string infoHex = "";
-            foreach (char c in tbSenha.Text)
-                infoHex += ((int)c).ToString("x");
-
-            string nonInfoHex = "";
-            for (int i =0; i < infoHex.Length / 2; i++)
-            {
-                //string hexsenha = infoHex.Substring(i * 2, 2);
-                //int hexvalue = Convert.ToInt32(infoHex.Substring(i * 2, 2), 16);
-                nonInfoHex += Char.ConvertFromUtf32(Convert.ToInt32(infoHex.Substring(i * 2, 2), 16));
-//                raw[i] = Convert.ToByte(infoHex.Substring(i * 2, 2), 16);
-            }
-            //var infoHex = String.Format("{0:x}", Convert.ToString(tbSenha.Text));
-
-            //MessageBox.Show(infoHex + " " + nonInfoHex);
-        }*/        
-
-        /*
-        private void button9_Click(object sender, EventArgs e)
-        {
-            // define os parâmetros para o inputbox
-            string Prompt = "Informe o nome do Banco de Dados a ser criado.Ex: Teste.sdf";
-            string Titulo = "www.macoratti.net";
-            string Resultado = Interaction.InputBox(Prompt, Titulo, @dir_projeto + "\\DB_SmartHomeAutomation.sdf", 650, 350);
-            // verifica se o resultado é uma string vazia o que indica que foi cancelado.
-            if (Resultado != "")
-            {
-                if (!Resultado.Contains(".sdf"))
-                {
-                    MessageBox.Show("Informe a extensão .sdf no arquivo...");
-                    return;
-                }
-                try
-                {
-                    string connectionString;
-                    string nomeArquivoBD = Resultado;
-                    string senha = "HomeAutomationDB";
-
-                    if (File.Exists(nomeArquivoBD))
-                    {
-                        if (MessageBox.Show("O arquivo já existe !. Deseja excluir e criar novamente ? ", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            File.Delete(nomeArquivoBD);
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-
-                    connectionString = string.Format("DataSource=\"{0}\"; Password='{1}'", nomeArquivoBD, senha);
-
-                    if (MessageBox.Show("Será criado arquivo " + connectionString + " Confirma ? ", "Criar", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        SqlCeEngine SqlEng = new SqlCeEngine(connectionString);
-                        SqlEng.CreateDatabase();
-                        //lblResultado.Text = "Banco de dados " + nomeArquivoBD + " com sucesso !";
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-            else
-            {
-                MessageBox.Show("A operação foi cancelada...");
-            }
-
-        }
-        */
-
+        /**
+         * btnMostrarDados_Click action used in the button Mostrar Dados (Tab Tabela Login)
+         **/
         private void btnMostrarDados_Click(object sender, EventArgs e)
         {
             showDataBase("TabelaLogin", dgvLogin);
         }
 
-
+        /**
+         * btnAdicionar_Click_1 action used in the button Adicionar (Tab Tabela Login)
+         **/
         private void btnAdicionar_Click_1(object sender, EventArgs e)
         {
             bool selected = false;
             string selectedItem = cbNome.SelectedItem.ToString();
             int index = cbNome.FindString(selectedItem);
 
-            if (index <= 0)
-            {
-                selected = false;
-            }
-            else
+            if (index >= 0)
             {
                 selected = true;
             }
@@ -403,30 +307,14 @@ namespace BancoDeDados_PI
                     cn.Open();
                 }
 
-                string checkNome = "SELECT COUNT(*) from TabelaLogin WHERE Nome='" + selectedItem + "'";
-                SqlCeCommand commandNome = new SqlCeCommand(checkNome, cn);
-                int nomeCount = (int)commandNome.ExecuteScalar();
-
-                //int nameCount = countEntries("TabelaLogin", "Nome", tbNome, cn);
-                int emailCount = countEntries("TabelaLogin", "Email", tbEmail, cn);
                 int loginCount = countEntries("TabelaLogin", "Login", tbLogin, cn);
 
-                if ((nomeCount > 0) || (emailCount > 0) || (loginCount > 0))
+                if (loginCount > 0)
                 {
                     if (loginCount > 0)
                     {
                         MessageBox.Show("Login ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         tbLogin.Focus();
-                    }
-                    if (emailCount > 0)
-                    {
-                        MessageBox.Show("Email ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        tbEmail.Focus();
-                    }
-                    if (nomeCount > 0)
-                    {
-                        MessageBox.Show("Nome ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        cbNome.Focus();
                     }
                 }
                 else
@@ -434,7 +322,6 @@ namespace BancoDeDados_PI
                     try
                     {
                         CarregarLinhaTabelaLogin(selectedItem, tbEmail.Text, tbLogin.Text, tbSenha.Text, cn);
-                        //tbNome.Text = "";
                         tbEmail.Text = "";
                         tbLogin.Text = "";
                         tbSenha.Text = "";
@@ -445,195 +332,53 @@ namespace BancoDeDados_PI
                         MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                cn.Close();
             }
         }
 
-        /*
-        private void btnProximo_Click(object sender, EventArgs e)
-        {
-            if (tbNomeColuna.Text == "")
-            {
-                MessageBox.Show("Nome da Coluna nao pode ser vazio");
-            }
-            else
-            {
-                colunas.Add(tbNomeColuna.Text);
-                lblColunas.Text += tbNomeColuna.Text + "\n";
-                tbNomeColuna.Text = "";
-                tbNomeColuna.Focus();
-            }
-        }
-        */
-
-        /*
-        private void btnConcluir_Click(object sender, EventArgs e)
-        {
-            if (tbNomeColuna.Text != "")
-            {
-                colunas.Add(tbNomeColuna.Text);
-                lblColunas.Text += tbNomeColuna.Text;
-                tbNomeColuna.Text = "";
-            }
-            //lblColunas.Text = "";
-            //for (int i = 0; i < colunas.Count; i++)
-            //{
-            //    if (colunas[i] != "")
-            //    {
-            //        lblColunas.Text += colunas[i] + "\n";
-            //    }
-            //}
-        }
-        */
-
-        
-        //private void button11_Click(object sender, EventArgs e)
-        //{
-        //    SqlCeConnection cn = new SqlCeConnection(stringConexao());
-        //    if (cn.State == ConnectionState.Closed)
-        //    {
-        //        cn.Open();
-        //    }
-            /*
-             * DELETE ENTRY
-            string st = "DELETE FROM TabelaLogin WHERE Nome='" + tbToDelete.Text + "'";
-            SqlCeCommand sqlcom = new SqlCeCommand(st, cn);
-            try
-            {
-                sqlcom.ExecuteNonQuery();
-                MessageBox.Show("Delete successful");
-                tbToDelete.Text = "";
-                tbToDelete.Focus();
-                cn.Close();
-            }
-            catch (SqlCeException ex)
-            {
-                MessageBox.Show(ex.Message);
-                cn.Close();
-            }
-            */
-
-            /*
-             * CHECK IF ENTRY EXISTS
-            string checkEntry = "SELECT COUNT(*) as cnt from TabelaLogin where Nome=@nome";
-            SqlCeCommand sqlcom = new SqlCeCommand(checkEntry, cn);
-            sqlcom.Parameters.Clear();
-            sqlcom.Parameters.AddWithValue("@Nome", tbToDelete.Text);
-            if(sqlcom.ExecuteScalar().ToString() == "1")
-            {
-                MessageBox.Show("Nome existe");
-            }
-            else
-            {
-                MessageBox.Show("Nome nao existe");
-            }
-            cn.Close();
-            */
-        //}
-
+        /**
+         * btnExcluir_Click_1 action used in the button Excluir (Tab Tabela Login)
+         **/
         private void btnExcluir_Click_1(object sender, EventArgs e)
         {
-            deleteEntriesCB("TabelaLogin", "Nome", cbNome, dgvLogin);
+            if (tbLogin.Text == "")
+            {
+                MessageBox.Show("Digite o Login a ser deletado!", "Campo Vazio", MessageBoxButtons.OK);
+                tbLogin.Focus();
+            }
+            else
+            {
+                deleteEntries("TabelaLogin", "Login", tbLogin, dgvLogin);
+            }
         }
 
+        /**
+         * btnSair_Click action used in the button Sair (Tab Tabela Login)
+         **/
         private void btnSair_Click(object sender, EventArgs e)
         {
+            SqlCeConnection cn = new SqlCeConnection(stringConexao());
+            cn.Close();
             Close();
         }
 
+        /**
+         * btnMostrarClientes_Click action used in the button Mostrar Dados (Tab Tabela Clientes)
+         **/
         private void btnMostrarClientes_Click(object sender, EventArgs e)
         {
             showDataBase("TabelaClientes", dgvClientes);
         }
 
-        private void button10_Click(object sender, EventArgs e)
-        {
-            // define os parâmetros para o inputbox
-            string Prompt = "Informe o nome da tabela a ser criada.Ex: Teste";
-            string Titulo = "Smart Home Automation";
-            string Resultado = Interaction.InputBox(Prompt, Titulo, "Nome Tabela", 650, 350);
-            // verifica se o resultado é uma string vazia o que indica que foi cancelado.
-
-            if (Resultado != "" ||
-                Resultado != "Nome Tabela")
-            {
-                if (Resultado.Contains(".sdf"))
-                {
-                    MessageBox.Show("Não informe a extensão .sdf no arquivo...");
-                    return;
-                }
-
-                SqlCeConnection cn = new SqlCeConnection(stringConexao());
-
-                if (cn.State == ConnectionState.Closed)
-                {
-                    cn.Open();
-                }
-                SqlCeCommand cmd;
-
-                /*string sql = "create table " + Resultado + "("
-                           + "CodigoCliente nvarchar (10) not null, "
-                           + "ModuloInstalado nvarchar (10), "
-                           + "Nome nvarchar (40), "
-                           + "Telefone nvarchar (20), "
-                           + "Celular nvarchar (20), "
-                           + "Endereco nvarchar (50), "
-                           + "Complemento nvarchar (20), "
-                           + "CEP nvarchar (15), "
-                           + "Cidade nvarchar (20), "
-                           + "Estado nvarchar (2) )";
-                */
-
-                string sql = "create table " + Resultado + "("
-                           + "CodigoKit nvarchar (10) not null, "
-                           + "Componente1 nvarchar (20), "
-                           + "Componente2 nvarchar (20), "
-                           + "Componente3 nvarchar (20) )";
-
-                cmd = new SqlCeCommand(sql, cn);
-
-                if (MessageBox.Show("Confirma a criação da tabela ? ", "Criar Tabela", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        //lblResultado.Text = "Tabela " + Resultado + " criada com sucesso ";
-                    }
-                    catch (SqlCeException sqlexception)
-                    {
-                        MessageBox.Show(sqlexception.Message, "Caramba1.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Caramba2.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        cn.Close();
-                    }
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                MessageBox.Show("A operação foi cancelada...");
-            }
-        }
-
+        /**
+         * btnAdicionarCliente_Click action used in the button Adicionar (Tab Tabela Clientes)
+         **/
         private void btnAdicionarCliente_Click(object sender, EventArgs e)
         {
             bool selected = false;
             string selectedItem = cbModuloInstalado.SelectedItem.ToString();
             int index = cbModuloInstalado.FindString(selectedItem);
 
-            if (index <= 0)
-            {
-                selected = false;
-            }
-            else
+            if (index >= 0)
             {
                 selected = true;
             }
@@ -641,8 +386,8 @@ namespace BancoDeDados_PI
             if ((tbCodigo.Text == "")           ||
                 (selected == false)             ||
                 (tbCliente.Text == "")          ||
-                (tbTelefone.Text == "")         ||
                 (tbCelular.Text == "")          ||
+                (tbEmailCliente.Text == "")     ||
                 (tbEndereco.Text == "")         ||
                 (tbCep.Text == "")              ||
                 (tbCidade.Text == "")           ||
@@ -652,8 +397,8 @@ namespace BancoDeDados_PI
                 if      (tbCodigo.Text == "")           { tbCodigo.Focus();             }
                 else if (selected == false)             { cbModuloInstalado.Focus();    }
                 else if (tbCliente.Text == "")          { tbCliente.Focus();            }
-                else if (tbTelefone.Text == "")         { tbTelefone.Focus();           }
                 else if (tbCelular.Text == "")          { tbCelular.Focus();            }
+                else if (tbEmailCliente.Text == "")     { tbEmailCliente.Focus();       }
                 else if (tbEndereco.Text == "")         { tbEndereco.Focus();           }
                 else if (tbCep.Text == "")              { tbCep.Focus();                }
                 else if (tbCidade.Text == "")           { tbCidade.Focus();             }
@@ -670,9 +415,11 @@ namespace BancoDeDados_PI
                 int codigoCount = countEntries("TabelaClientes", "CodigoCliente", tbCodigo, cn);
                 int clienteCount = countEntries("TabelaClientes", "Nome", tbCliente, cn);
                 int enderecoCount = countEntries("TabelaClientes", "Endereco", tbEndereco, cn);
+                int emailCount = countEntries("TabelaClientes", "Email", tbEmailCliente, cn);
 
                 if ((codigoCount > 0)   || 
                     (clienteCount > 0)  ||
+                    (emailCount > 0)    ||
                     (enderecoCount > 0))
                 {
                     if (codigoCount > 0)
@@ -690,23 +437,29 @@ namespace BancoDeDados_PI
                         MessageBox.Show("Endereco ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         tbEndereco.Focus();
                     }
+                    if (emailCount > 0)
+                    {
+                        MessageBox.Show("Email ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbEmailCliente.Focus();
+                    }
                 }
                 else
                 {
                     try
                     {
-                        CarregarLinhaTabelaClientes(tbCodigo.Text, selectedItem, tbCliente.Text, tbTelefone.Text,
-                            tbCelular.Text, tbEndereco.Text, tbComplemento.Text, tbCep.Text, tbCidade.Text, tbUF.Text, cn);
+                        CarregarLinhaTabelaClientes(tbCodigo.Text, selectedItem, tbCliente.Text, tbTelefone.Text, tbCelular.Text,
+                            tbEmailCliente.Text, tbEndereco.Text, tbComplemento.Text, tbCep.Text, tbCidade.Text, tbUF.Text, cn);
 
-                        tbCodigo.Text = "";
-                        tbCliente.Text = "";
-                        tbTelefone.Text = "";
-                        tbCelular.Text = "";
-                        tbEndereco.Text = "";
-                        tbComplemento.Text = "";
-                        tbCep.Text = "";
-                        tbCidade.Text = "";
-                        tbUF.Text = "";
+                        tbCodigo.Text       = "";
+                        tbCliente.Text      = "";
+                        tbTelefone.Text     = "";
+                        tbCelular.Text      = "";
+                        tbEmailCliente.Text = "";
+                        tbEndereco.Text     = "";
+                        tbComplemento.Text  = "";
+                        tbCep.Text          = "";
+                        tbCidade.Text       = "";
+                        tbUF.Text           = "";
                         showDataBase("TabelaClientes", dgvClientes);
                     }
                     catch (Exception ex)
@@ -714,30 +467,56 @@ namespace BancoDeDados_PI
                         MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                cn.Close();
             }
         }
 
+        /**
+         * btnExcluirCliente_Click action used in the button Excluir (Tab Tabela Clientes)
+         **/
         private void btnExcluirCliente_Click(object sender, EventArgs e)
         {
-            deleteEntries("TabelaClientes", "CodigoCliente", tbCodigo, dgvClientes);
+            if (tbCodigo.Text == "")
+            {
+                MessageBox.Show("Digite o Codigo a ser deletado!", "Campo Vazio", MessageBoxButtons.OK);
+                tbCodigo.Focus();
+            }
+            else
+            {
+                deleteEntries("TabelaClientes", "CodigoCliente", tbCodigo, dgvClientes);
+            }
         }
 
+        /**
+         * btnSairCliente_Click action used in the button Sair (Tab Tabela Clientes)
+         **/
         private void btnSairCliente_Click(object sender, EventArgs e)
         {
+            SqlCeConnection cn = new SqlCeConnection(stringConexao());
+            cn.Close();
             Close();
         }
 
+        /**
+         * btnSairKits_Click action used in the button Sair (Tab Tabela Kits)
+         **/
         private void btnSairKits_Click(object sender, EventArgs e)
         {
+            SqlCeConnection cn = new SqlCeConnection(stringConexao());
+            cn.Close();
             Close();
         }
 
+        /**
+         * btnMostrarKits_Click action used in the button Mostrar Dados (Tab Tabela Kits)
+         **/
         private void btnMostrarKits_Click(object sender, EventArgs e)
         {
             showDataBase("TabelaKits", dgvKits);
         }
 
+        /**
+         * btnAdicionarKits_Click action used in the button Adicionar (Tab Tabela Kits)
+         **/
         private void btnAdicionarKits_Click(object sender, EventArgs e)
         {
             if ((tbCodigoModulo.Text == "") ||
@@ -775,9 +554,9 @@ namespace BancoDeDados_PI
                     {
                         CarregarLinhaTabelaKits(tbCodigoModulo.Text, tbComponente1.Text, tbComponente2.Text, tbComponente3.Text, cn);
                         tbCodigoModulo.Text = "";
-                        tbComponente1.Text = "";
-                        tbComponente2.Text = "";
-                        tbComponente3.Text = "";
+                        tbComponente1.Text  = "";
+                        tbComponente2.Text  = "";
+                        tbComponente3.Text  = "";
                         showDataBase("TabelaKits", dgvKits);
                     }
                     catch (Exception ex)
@@ -785,35 +564,29 @@ namespace BancoDeDados_PI
                         MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                cn.Close();
             }
         }
 
-        private void btnExcluirTabela_Click(object sender, EventArgs e)
-        {
-            excluirTabela("TabelaKits");
-        }
-
+        /**
+         * btnExcluirKits_Click action used in the button Excluir (Tab Tabela Kits)
+         **/
         private void btnExcluirKits_Click(object sender, EventArgs e)
         {
-            deleteEntries("TabelaKits", "CodigoKit", tbCodigoModulo, dgvKits);
-        }
-
-        private void btnShowNames_Click(object sender, EventArgs e)
-        {
-            
-
-            /*SqlCeConnection cn = new SqlCeConnection(stringConexao());
-            SqlCeCommand command = new SqlCeCommand("SELECT * FROM TabelaClientes", cn);
-            SqlCeDataAdapter da = new SqlCeDataAdapter(command);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            foreach (DataRow dr in dt.Rows)
+            if (tbCodigoModulo.Text == "")
             {
-                listBox1.Items.Add(dr["Nome"].ToString());
-            }*/
+                MessageBox.Show("Digite o Modulo a ser deletado!", "Campo Vazio", MessageBoxButtons.OK);
+                tbCodigoModulo.Focus();
+            }
+            else
+            {
+                deleteEntries("TabelaKits", "CodigoKit", tbCodigoModulo, dgvKits);
+            }
         }
 
+        /**
+         * TabelaLogin_Enter action used whe the Tab Tabela Login is selected
+         * will fill the combo box Nome with dashes and then with the values stores in the TabelaClientes table
+         **/
         private void TabelaLogin_Enter(object sender, EventArgs e)
         {
             cbNome.Items.Clear();
@@ -830,6 +603,10 @@ namespace BancoDeDados_PI
             cbNome.SelectedIndex = 0;
         }
 
+        /**
+         * TabelaClientes_Enter action used whe the Tab Tabela Clietes is selected
+         * will fill the combo box Modulo Instado with dashes and then with the values stores in the TabelaKits table
+         **/
         private void TabelaClientes_Enter(object sender, EventArgs e)
         {
             cbModuloInstalado.Items.Clear();
@@ -846,26 +623,58 @@ namespace BancoDeDados_PI
             cbModuloInstalado.SelectedIndex = 0;
         }
 
+        /**
+         * btnLimparClientes_Click action used in the button Limpar (Tab Tabela Clientes)
+         * clean all the entries
+         **/
         private void btnLimparClientes_Click(object sender, EventArgs e)
         {
-            tbCodigo.Text = "";
-            tbCliente.Text = "";
-            tbTelefone.Text = "";
-            tbCelular.Text = "";
-            tbEndereco.Text = "";
-            tbComplemento.Text = "";
-            tbCep.Text = "";
-            tbCidade.Text = "";
-            tbUF.Text = "";
+            tbCodigo.Text       = "";
+            tbCliente.Text      = "";
+            tbTelefone.Text     = "";
+            tbCelular.Text      = "";
+            tbEndereco.Text     = "";
+            tbComplemento.Text  = "";
+            tbCep.Text          = "";
+            tbCidade.Text       = "";
+            tbUF.Text           = "";
             cbModuloInstalado.SelectedIndex = 0;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /**
+         * btnLimparLogin_Click action used in the button Limpar (Tab Tabela Login)
+         * clean all the entries
+         **/
+        private void btnLimparLogin_Click(object sender, EventArgs e)
         {
             tbEmail.Text = "";
             tbLogin.Text = "";
             tbSenha.Text = "";
             cbNome.SelectedIndex = 0;
+        }
+
+        /**
+         * cbNome_DropDownClosed action efter the dropdown Nome in Tabela Login tab is closed
+         * auto fill the email based in the client's name
+         **/
+        private void cbNome_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbNome.SelectedItem.ToString() != "------")
+            {
+                SqlCeConnection con = new SqlCeConnection(stringConexao());
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                SqlCeCommand command = new SqlCeCommand("SELECT Email FROM TabelaClientes WHERE Nome='" + cbNome.SelectedItem.ToString() + "'", con);
+                SqlCeDataAdapter da = new SqlCeDataAdapter(command);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    tbEmail.Text = dr["Email"].ToString();
+                }
+            }
         }
     }
 }
