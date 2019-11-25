@@ -95,7 +95,8 @@ namespace BancoDeDados_PI
          * @senha: client's password
          * @cn: sql database connection
          **/
-        private void CarregarLinhaTabelaLogin(string nome, string email, string login, string senha, SqlCeConnection cn)
+        private void CarregarLinhaTabelaLogin(string nome, string email, string login, string senha, string RG, string CPF,
+                                              string pergunta, string resposta, string privilegio, SqlCeConnection cn)
         {
             string infoHex = "";
             foreach (char c in senha)
@@ -103,8 +104,8 @@ namespace BancoDeDados_PI
 
             SqlCeCommand cmd;
             string sqlLogin = "insert into TabelaLogin "
-                            + "(nome, email, login, senha) "
-                            + "values (@Nome, @Email, @Login, @Senha)";
+                            + "(nome, email, login, senha, RG, CPF, pergunta, resposta, privilegio) "
+                            + "values (@Nome, @Email, @Login, @Senha, @RG, @CPF, @Pergunta, @Resposta, @Privilegio)";
             try
             {
                 cmd = new SqlCeCommand(sqlLogin, cn);
@@ -112,6 +113,11 @@ namespace BancoDeDados_PI
                 cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Login", login);
                 cmd.Parameters.AddWithValue("@Senha", infoHex);
+                cmd.Parameters.AddWithValue("@Email", RG);
+                cmd.Parameters.AddWithValue("@Login", CPF);
+                cmd.Parameters.AddWithValue("@Senha", pergunta);
+                cmd.Parameters.AddWithValue("@Senha", resposta);
+                cmd.Parameters.AddWithValue("@Privilegio", privilegio);
                 cmd.ExecuteNonQuery();
             }
             catch (SqlCeException sqlexception)
@@ -139,35 +145,30 @@ namespace BancoDeDados_PI
          * @estado: client's state
          * @cn: sql database connection
          **/
-        private void CarregarLinhaTabelaClientes(string codigoCliente, string moduloInstalado, string nome, string CPF, string RG,
-                                                 string telefone, string celular, string email, string endereco, string complemento,
-                                                 string CEP, string cidade, string estado, string pergunta, string resposta, SqlCeConnection cn)
+        private void CarregarLinhaTabelaClientes(string codigoCliente, string moduloInstalado, string nome,
+                                                 string telefone, string celular, string endereco, string complemento,
+                                                 string CEP, string cidade, string estado, SqlCeConnection cn)
         {
 
             SqlCeCommand cmd;
             string sqlLogin = "insert into TabelaClientes "
-                            + "(codigoCliente, moduloInstalado, nome, CPF, RG, telefone, celular, email,"
-                            + " endereco, complemento, CEP, cidade, estado, pergunta, resposta) "
-                            + "values (@CodigoCliente, @ModuloInstalado, @Nome, @CPF, @RG, @Telefone, "
-                            + "@Celular, @Email, @Endereco, @Complemento, @CEP, @Cidade, @Estado, @pergunta, @resposta)";
+                            + "(codigoCliente, moduloInstalado, nome, telefone, celular,"
+                            + " endereco, complemento, CEP, cidade, estado) "
+                            + "values (@CodigoCliente, @ModuloInstalado, @Nome, @Telefone, "
+                            + "@Celular, @Endereco, @Complemento, @CEP, @Cidade, @Estado)";
             try
             {
                 cmd = new SqlCeCommand(sqlLogin, cn);
                 cmd.Parameters.AddWithValue("@CodigoCliente", codigoCliente);
                 cmd.Parameters.AddWithValue("@ModuloInstalado", moduloInstalado);
-                cmd.Parameters.AddWithValue("@CPF", CPF);
-                cmd.Parameters.AddWithValue("@RG", RG);
                 cmd.Parameters.AddWithValue("@Nome", nome);
                 cmd.Parameters.AddWithValue("@Telefone", telefone);
                 cmd.Parameters.AddWithValue("@Celular", celular);
-                cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Endereco", endereco);
                 cmd.Parameters.AddWithValue("@Complemento", complemento);
                 cmd.Parameters.AddWithValue("@CEP", CEP);
                 cmd.Parameters.AddWithValue("@Cidade", cidade);
                 cmd.Parameters.AddWithValue("@Estado", estado);
-                cmd.Parameters.AddWithValue("@pergunta", pergunta);
-                cmd.Parameters.AddWithValue("@resposta", resposta);
                 cmd.ExecuteNonQuery();
             }
             catch (SqlCeException sqlexception)
@@ -284,25 +285,53 @@ namespace BancoDeDados_PI
          **/
         private void btnAdicionar_Click_1(object sender, EventArgs e)
         {
-            bool selected = false;
-            string selectedItem = cbNome.SelectedItem.ToString();
-            int index = cbNome.FindString(selectedItem);
+            bool nameSelected = false;
+            string selectedItemName = cbNome.SelectedItem.ToString();
+            int nameIndex = cbNome.FindString(selectedItemName);
 
-            if (index >= 0)
+            if (nameIndex >= 0)
             {
-                selected = true;
+                nameSelected = true;
             }
 
-            if ((selected == false)  ||
+            bool questionSelected = false;
+            string selectedItemQuestion = cbPergunta.SelectedItem.ToString();
+            int questionIndex = cbPergunta.FindString(selectedItemQuestion);
+
+            if (questionIndex >= 0)
+            {
+                questionSelected = true;
+            }
+
+            bool privilegySelected = false;
+            string selectedItemPrivilegy = cbPrivilegio.SelectedItem.ToString();
+            int privilegyIndex = cbPrivilegio.FindString(selectedItemPrivilegy);
+
+            if (privilegyIndex >= 0)
+            {
+                privilegySelected = true;
+            }
+
+            if ((nameSelected == false)  ||
                 (tbEmail.Text == "") ||
                 (tbLogin.Text == "") ||
-                (tbSenha.Text == ""))
+                (tbSenha.Text == "") ||
+                (tbCPF.Text == "") ||
+                (tbRG.Text == "") ||
+                (privilegySelected == false) ||
+                (questionSelected == false) ||
+                (tbResposta.Text == ""))
             {
                 MessageBox.Show("Preencha todos os campos antes de adicionar uma entrada!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (selected == false) { cbNome.Focus(); }
+                if (nameSelected == false) { cbNome.Focus(); }
                 else if (tbEmail.Text == "") { tbEmail.Focus(); }
                 else if (tbLogin.Text == "") { tbLogin.Focus(); }
                 else if (tbSenha.Text == "") { tbSenha.Focus(); }
+                else if (tbCPF.Text == "") { tbCPF.Focus(); }
+                else if (tbRG.Text == "") { tbRG.Focus(); }
+                else if (questionSelected == false) { cbPergunta.Focus(); }
+                else if (privilegySelected == false) { cbPrivilegio.Focus(); }
+                else if (tbResposta.Text == "") { tbResposta.Focus(); }
             }
             else
             {
@@ -313,24 +342,37 @@ namespace BancoDeDados_PI
                 }
 
                 int loginCount = countEntries("TabelaLogin", "Login", tbLogin, cn);
+                int emailCount = countEntries("TabelaLogin", "Email", tbEmail, cn);
 
-                if (loginCount > 0)
+
+                if ((loginCount > 0) && (emailCount > 0))
                 {
                     if (loginCount > 0)
                     {
                         MessageBox.Show("Login ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         tbLogin.Focus();
                     }
+                    if (emailCount > 0)
+                    {
+                        MessageBox.Show("Email ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbEmail.Focus();
+                    }
                 }
                 else
                 {
                     try
                     {
-                        CarregarLinhaTabelaLogin(selectedItem, tbEmail.Text, tbLogin.Text, tbSenha.Text, cn);
+                        CarregarLinhaTabelaLogin(selectedItemName, tbEmail.Text, tbLogin.Text, tbSenha.Text, tbRG.Text, tbCPF.Text,
+                                                 selectedItemQuestion, tbResposta.Text, selectedItemPrivilegy, cn);
                         tbEmail.Text = "";
                         tbLogin.Text = "";
                         tbSenha.Text = "";
                         cbNome.SelectedIndex = 0;
+                        tbRG.Text = "";
+                        tbCPF.Text = "";
+                        cbPergunta.SelectedIndex = 0;
+                        cbPrivilegio.SelectedIndex = 1;
+                        tbResposta.Text = "";
                         showDataBase("TabelaLogin", dgvLogin);
                     }
                     catch (Exception ex)
@@ -393,13 +435,11 @@ namespace BancoDeDados_PI
                 (selected == false)             ||
                 (tbCliente.Text == "")          ||
                 (tbCelular.Text == "")          ||
-                (tbEmailCliente.Text == "")     ||
                 (tbEndereco.Text == "")         ||
                 (tbCep.Text == "")              ||
                 (tbCidade.Text == "")           ||
                 (tbCPF.Text == "")              ||
                 (tbRG.Text == "")               ||
-                (tbResposta.Text == "")         ||
                 (tbUF.Text == ""))
             {
                 MessageBox.Show("Preencha todos os campos antes de adicionar uma entrada!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -409,12 +449,10 @@ namespace BancoDeDados_PI
                 else if (tbCPF.Text == "")              { tbCPF.Focus();                }
                 else if (tbRG.Text == "")               { tbRG.Focus();                 }
                 else if (tbCelular.Text == "")          { tbCelular.Focus();            }
-                else if (tbEmailCliente.Text == "")     { tbEmailCliente.Focus();       }
                 else if (tbEndereco.Text == "")         { tbEndereco.Focus();           }
                 else if (tbCep.Text == "")              { tbCep.Focus();                }
                 else if (tbCidade.Text == "")           { tbCidade.Focus();             }
                 else if (tbUF.Text == "")               { tbUF.Focus();                 }
-                else if (tbResposta.Text == "")         { tbResposta.Focus();           }
             }
             else
             {
@@ -427,12 +465,10 @@ namespace BancoDeDados_PI
                 int codigoCount = countEntries("TabelaClientes", "CodigoCliente", tbCodigo, cn);
                 int clienteCount = countEntries("TabelaClientes", "Nome", tbCliente, cn);
                 int enderecoCount = countEntries("TabelaClientes", "Endereco", tbEndereco, cn);
-                int emailCount = countEntries("TabelaClientes", "Email", tbEmailCliente, cn);
                 
 
                 if ((codigoCount > 0)   || 
                     (clienteCount > 0)  ||
-                    (emailCount > 0)    ||
                     (enderecoCount > 0))
                 {
                     if (codigoCount > 0)
@@ -450,19 +486,13 @@ namespace BancoDeDados_PI
                         MessageBox.Show("Endereco ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         tbEndereco.Focus();
                     }
-                    if (emailCount > 0)
-                    {
-                        MessageBox.Show("Email ja existe", "Entrada Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        tbEmailCliente.Focus();
-                    }
                 }
                 else
                 {
                     try
                     {
-                        CarregarLinhaTabelaClientes(tbCodigo.Text, selectedItem, tbCliente.Text, tbCPF.Text, tbRG.Text, tbTelefone.Text,
-                            tbCelular.Text, tbEmailCliente.Text, tbEndereco.Text, tbComplemento.Text, tbCep.Text, tbCidade.Text, tbUF.Text,
-                            cbPergunta.SelectedItem.ToString(), tbResposta.Text, cn);
+                       CarregarLinhaTabelaClientes(tbCodigo.Text, selectedItem, tbCliente.Text, tbTelefone.Text, tbCelular.Text,
+                            tbEndereco.Text, tbComplemento.Text, tbCep.Text, tbCidade.Text, tbUF.Text, cn);
 
                         tbCodigo.Text       = "";
                         tbCliente.Text      = "";
@@ -470,14 +500,11 @@ namespace BancoDeDados_PI
                         tbCPF.Text          = "";
                         tbRG.Text           = "";
                         tbCelular.Text      = "";
-                        tbEmailCliente.Text = "";
                         tbEndereco.Text     = "";
                         tbComplemento.Text  = "";
                         tbCep.Text          = "";
                         tbCidade.Text       = "";
                         tbUF.Text           = "";
-                        tbResposta.Text     = "";
-                        cbModuloInstalado.SelectedIndex = 0;
                         showDataBase("TabelaClientes", dgvClientes);
                     }
                     catch (Exception ex)
@@ -608,6 +635,9 @@ namespace BancoDeDados_PI
         private void TabelaLogin_Enter(object sender, EventArgs e)
         {
             cbNome.Items.Clear();
+            cbPrivilegio.Items.Clear();
+            cbPrivilegio.Items.Add("Adm");
+            cbPrivilegio.Items.Add("User");
             cbNome.Items.Add("------");
             SqlCeConnection cn = new SqlCeConnection(stringConexao());
             SqlCeCommand command = new SqlCeCommand("SELECT * FROM TabelaClientes", cn);
@@ -671,30 +701,11 @@ namespace BancoDeDados_PI
             tbLogin.Text = "";
             tbSenha.Text = "";
             cbNome.SelectedIndex = 0;
-        }
-
-        /**
-         * cbNome_DropDownClosed action efter the dropdown Nome in Tabela Login tab is closed
-         * auto fill the email based in the client's name
-         **/
-        private void cbNome_DropDownClosed(object sender, EventArgs e)
-        {
-            if (cbNome.SelectedItem.ToString() != "------")
-            {
-                SqlCeConnection con = new SqlCeConnection(stringConexao());
-                if (con.State == ConnectionState.Closed)
-                {
-                    con.Open();
-                }
-                SqlCeCommand command = new SqlCeCommand("SELECT Email FROM TabelaClientes WHERE Nome='" + cbNome.SelectedItem.ToString() + "'", con);
-                SqlCeDataAdapter da = new SqlCeDataAdapter(command);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    tbEmail.Text = dr["Email"].ToString();
-                }
-            }
+            tbRG.Text = "";
+            tbCPF.Text = "";
+            tbResposta.Text = "";
+            cbPergunta.SelectedIndex = 0;
+            cbPrivilegio.SelectedIndex = 1;
         }
 
         private void BDHomeAutomation_Load(object sender, EventArgs e)
