@@ -139,21 +139,24 @@ namespace BancoDeDados_PI
          * @estado: client's state
          * @cn: sql database connection
          **/
-        private void CarregarLinhaTabelaClientes(string codigoCliente, string moduloInstalado, string nome, string telefone,
-                                                 string celular, string email, string endereco, string complemento, string CEP,
-                                                 string cidade, string estado, SqlCeConnection cn)
+        private void CarregarLinhaTabelaClientes(string codigoCliente, string moduloInstalado, string nome, string CPF, string RG,
+                                                 string telefone, string celular, string email, string endereco, string complemento,
+                                                 string CEP, string cidade, string estado, string pergunta, string resposta, SqlCeConnection cn)
         {
 
             SqlCeCommand cmd;
             string sqlLogin = "insert into TabelaClientes "
-                            + "(codigoCliente, moduloInstalado, nome, telefone, celular, email, endereco, complemento, CEP, cidade, estado) "
-                            + "values (@CodigoCliente, @ModuloInstalado, @Nome, @Telefone, @Celular, @Email, @Endereco, @Complemento, "
-                            + "@CEP, @Cidade, @Estado)";
+                            + "(codigoCliente, moduloInstalado, nome, CPF, RG, telefone, celular, email,"
+                            + " endereco, complemento, CEP, cidade, estado, pergunta, resposta) "
+                            + "values (@CodigoCliente, @ModuloInstalado, @Nome, @CPF, @RG, @Telefone, "
+                            + "@Celular, @Email, @Endereco, @Complemento, @CEP, @Cidade, @Estado, @pergunta, @resposta)";
             try
             {
                 cmd = new SqlCeCommand(sqlLogin, cn);
                 cmd.Parameters.AddWithValue("@CodigoCliente", codigoCliente);
                 cmd.Parameters.AddWithValue("@ModuloInstalado", moduloInstalado);
+                cmd.Parameters.AddWithValue("@CPF", CPF);
+                cmd.Parameters.AddWithValue("@RG", RG);
                 cmd.Parameters.AddWithValue("@Nome", nome);
                 cmd.Parameters.AddWithValue("@Telefone", telefone);
                 cmd.Parameters.AddWithValue("@Celular", celular);
@@ -163,6 +166,8 @@ namespace BancoDeDados_PI
                 cmd.Parameters.AddWithValue("@CEP", CEP);
                 cmd.Parameters.AddWithValue("@Cidade", cidade);
                 cmd.Parameters.AddWithValue("@Estado", estado);
+                cmd.Parameters.AddWithValue("@pergunta", pergunta);
+                cmd.Parameters.AddWithValue("@resposta", resposta);
                 cmd.ExecuteNonQuery();
             }
             catch (SqlCeException sqlexception)
@@ -392,18 +397,24 @@ namespace BancoDeDados_PI
                 (tbEndereco.Text == "")         ||
                 (tbCep.Text == "")              ||
                 (tbCidade.Text == "")           ||
+                (tbCPF.Text == "")              ||
+                (tbRG.Text == "")               ||
+                (tbResposta.Text == "")         ||
                 (tbUF.Text == ""))
             {
                 MessageBox.Show("Preencha todos os campos antes de adicionar uma entrada!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if      (tbCodigo.Text == "")           { tbCodigo.Focus();             }
                 else if (selected == false)             { cbModuloInstalado.Focus();    }
                 else if (tbCliente.Text == "")          { tbCliente.Focus();            }
+                else if (tbCPF.Text == "")              { tbCPF.Focus();                }
+                else if (tbRG.Text == "")               { tbRG.Focus();                 }
                 else if (tbCelular.Text == "")          { tbCelular.Focus();            }
                 else if (tbEmailCliente.Text == "")     { tbEmailCliente.Focus();       }
                 else if (tbEndereco.Text == "")         { tbEndereco.Focus();           }
                 else if (tbCep.Text == "")              { tbCep.Focus();                }
                 else if (tbCidade.Text == "")           { tbCidade.Focus();             }
                 else if (tbUF.Text == "")               { tbUF.Focus();                 }
+                else if (tbResposta.Text == "")         { tbResposta.Focus();           }
             }
             else
             {
@@ -417,6 +428,7 @@ namespace BancoDeDados_PI
                 int clienteCount = countEntries("TabelaClientes", "Nome", tbCliente, cn);
                 int enderecoCount = countEntries("TabelaClientes", "Endereco", tbEndereco, cn);
                 int emailCount = countEntries("TabelaClientes", "Email", tbEmailCliente, cn);
+                
 
                 if ((codigoCount > 0)   || 
                     (clienteCount > 0)  ||
@@ -448,12 +460,15 @@ namespace BancoDeDados_PI
                 {
                     try
                     {
-                        CarregarLinhaTabelaClientes(tbCodigo.Text, selectedItem, tbCliente.Text, tbTelefone.Text, tbCelular.Text,
-                            tbEmailCliente.Text, tbEndereco.Text, tbComplemento.Text, tbCep.Text, tbCidade.Text, tbUF.Text, cn);
+                        CarregarLinhaTabelaClientes(tbCodigo.Text, selectedItem, tbCliente.Text, tbCPF.Text, tbRG.Text, tbTelefone.Text,
+                            tbCelular.Text, tbEmailCliente.Text, tbEndereco.Text, tbComplemento.Text, tbCep.Text, tbCidade.Text, tbUF.Text,
+                            cbPergunta.SelectedItem.ToString(), tbResposta.Text, cn);
 
                         tbCodigo.Text       = "";
                         tbCliente.Text      = "";
                         tbTelefone.Text     = "";
+                        tbCPF.Text          = "";
+                        tbRG.Text           = "";
                         tbCelular.Text      = "";
                         tbEmailCliente.Text = "";
                         tbEndereco.Text     = "";
@@ -461,6 +476,7 @@ namespace BancoDeDados_PI
                         tbCep.Text          = "";
                         tbCidade.Text       = "";
                         tbUF.Text           = "";
+                        tbResposta.Text     = "";
                         cbModuloInstalado.SelectedIndex = 0;
                         showDataBase("TabelaClientes", dgvClientes);
                     }
@@ -633,6 +649,8 @@ namespace BancoDeDados_PI
         {
             tbCodigo.Text       = "";
             tbCliente.Text      = "";
+            tbCPF.Text          = "";
+            tbRG.Text           = "";
             tbTelefone.Text     = "";
             tbCelular.Text      = "";
             tbEndereco.Text     = "";
@@ -679,17 +697,16 @@ namespace BancoDeDados_PI
             }
         }
 
-        private void excluirTabela(string tabela)
+        private void BDHomeAutomation_Load(object sender, EventArgs e)
         {
-            SqlCeConnection cn = new SqlCeConnection(stringConexao());
-            if (cn.State == ConnectionState.Closed)
-            {
-                cn.Open();
-            }
-            string sqlCommand = "DROP TABLE " + tabela;
-            SqlCeCommand command = new SqlCeCommand(sqlCommand, cn);
-            command.ExecuteNonQuery();
-            cn.Close();
+            cbPergunta.Items.Clear();
+            cbPergunta.Items.Add("Qual seu animal favorito?");
+            cbPergunta.Items.Add("Qual o nome da sua primeira escola?");
+            cbPergunta.Items.Add("Qual o nome da sua primeira professora?");
+            cbPergunta.Items.Add("Qual o seu carro favorito?");
+            cbPergunta.Items.Add("Qual o nome do seu primeiro animal de estimação?");
+            cbPergunta.Items.Add("Qual a cidade natal de sua avó?");
+            cbPergunta.Items.Add("Qual país você mais deseja conhecer?");
         }
     }
 }
