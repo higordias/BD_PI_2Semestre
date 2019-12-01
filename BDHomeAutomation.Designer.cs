@@ -97,6 +97,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.TabelaAcessos = new System.Windows.Forms.TabPage();
+            this.btnSairAcessos = new System.Windows.Forms.Button();
+            this.btnMostrarAcessos = new System.Windows.Forms.Button();
+            this.dgvAcessos = new System.Windows.Forms.DataGridView();
             this.TabelaRFID = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.dgvRFID = new System.Windows.Forms.DataGridView();
@@ -127,17 +130,6 @@
             this.cbResponsavelRFID = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.tbResponsavelRFID = new System.Windows.Forms.TextBox();
-            this.GerenciarTabelas = new System.Windows.Forms.TabPage();
-            this.tbClienteEmail = new System.Windows.Forms.TextBox();
-            this.lblColunas = new System.Windows.Forms.Label();
-            this.btnCompletar = new System.Windows.Forms.Button();
-            this.tbNomeCliente = new System.Windows.Forms.TextBox();
-            this.btnExcluirTabela = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.dgvAcessos = new System.Windows.Forms.DataGridView();
-            this.btnSairAcessos = new System.Windows.Forms.Button();
-            this.btnMostrarAcessos = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabelaLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLogin)).BeginInit();
@@ -146,10 +138,9 @@
             this.TabelaKits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKits)).BeginInit();
             this.TabelaAcessos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAcessos)).BeginInit();
             this.TabelaRFID.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRFID)).BeginInit();
-            this.GerenciarTabelas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAcessos)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -159,7 +150,6 @@
             this.tabControl1.Controls.Add(this.TabelaKits);
             this.tabControl1.Controls.Add(this.TabelaAcessos);
             this.tabControl1.Controls.Add(this.TabelaRFID);
-            this.tabControl1.Controls.Add(this.GerenciarTabelas);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -816,6 +806,36 @@
             this.TabelaAcessos.Text = "Tabela Acessos";
             this.TabelaAcessos.UseVisualStyleBackColor = true;
             // 
+            // btnSairAcessos
+            // 
+            this.btnSairAcessos.Location = new System.Drawing.Point(284, 17);
+            this.btnSairAcessos.Name = "btnSairAcessos";
+            this.btnSairAcessos.Size = new System.Drawing.Size(113, 23);
+            this.btnSairAcessos.TabIndex = 15;
+            this.btnSairAcessos.Text = "Sair";
+            this.btnSairAcessos.UseVisualStyleBackColor = true;
+            this.btnSairAcessos.Click += new System.EventHandler(this.btnSairAcessos_Click);
+            // 
+            // btnMostrarAcessos
+            // 
+            this.btnMostrarAcessos.Location = new System.Drawing.Point(156, 17);
+            this.btnMostrarAcessos.Name = "btnMostrarAcessos";
+            this.btnMostrarAcessos.Size = new System.Drawing.Size(113, 23);
+            this.btnMostrarAcessos.TabIndex = 14;
+            this.btnMostrarAcessos.Text = "Mostrar Dados";
+            this.btnMostrarAcessos.UseVisualStyleBackColor = true;
+            this.btnMostrarAcessos.Click += new System.EventHandler(this.btnMostrarAcessos_Click);
+            // 
+            // dgvAcessos
+            // 
+            this.dgvAcessos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAcessos.Location = new System.Drawing.Point(17, 46);
+            this.dgvAcessos.Name = "dgvAcessos";
+            this.dgvAcessos.RowHeadersWidth = 51;
+            this.dgvAcessos.RowTemplate.Height = 24;
+            this.dgvAcessos.Size = new System.Drawing.Size(489, 469);
+            this.dgvAcessos.TabIndex = 13;
+            // 
             // TabelaRFID
             // 
             this.TabelaRFID.Controls.Add(this.button1);
@@ -1111,112 +1131,6 @@
             this.tbResponsavelRFID.TabIndex = 36;
             this.tbResponsavelRFID.TabStop = false;
             // 
-            // GerenciarTabelas
-            // 
-            this.GerenciarTabelas.Controls.Add(this.tbClienteEmail);
-            this.GerenciarTabelas.Controls.Add(this.lblColunas);
-            this.GerenciarTabelas.Controls.Add(this.btnCompletar);
-            this.GerenciarTabelas.Controls.Add(this.tbNomeCliente);
-            this.GerenciarTabelas.Controls.Add(this.btnExcluirTabela);
-            this.GerenciarTabelas.Controls.Add(this.button10);
-            this.GerenciarTabelas.Controls.Add(this.button9);
-            this.GerenciarTabelas.Location = new System.Drawing.Point(4, 25);
-            this.GerenciarTabelas.Name = "GerenciarTabelas";
-            this.GerenciarTabelas.Padding = new System.Windows.Forms.Padding(3);
-            this.GerenciarTabelas.Size = new System.Drawing.Size(522, 523);
-            this.GerenciarTabelas.TabIndex = 5;
-            this.GerenciarTabelas.Text = "Gerenciar Tabelas";
-            this.GerenciarTabelas.UseVisualStyleBackColor = true;
-            // 
-            // tbClienteEmail
-            // 
-            this.tbClienteEmail.Location = new System.Drawing.Point(27, 195);
-            this.tbClienteEmail.Name = "tbClienteEmail";
-            this.tbClienteEmail.Size = new System.Drawing.Size(259, 22);
-            this.tbClienteEmail.TabIndex = 51;
-            // 
-            // lblColunas
-            // 
-            this.lblColunas.AutoSize = true;
-            this.lblColunas.Location = new System.Drawing.Point(27, 200);
-            this.lblColunas.Name = "lblColunas";
-            this.lblColunas.Size = new System.Drawing.Size(0, 17);
-            this.lblColunas.TabIndex = 50;
-            // 
-            // btnCompletar
-            // 
-            this.btnCompletar.Location = new System.Drawing.Point(292, 166);
-            this.btnCompletar.Name = "btnCompletar";
-            this.btnCompletar.Size = new System.Drawing.Size(113, 23);
-            this.btnCompletar.TabIndex = 48;
-            this.btnCompletar.Text = "Completar";
-            this.btnCompletar.UseVisualStyleBackColor = true;
-            // 
-            // tbNomeCliente
-            // 
-            this.tbNomeCliente.Location = new System.Drawing.Point(27, 167);
-            this.tbNomeCliente.Name = "tbNomeCliente";
-            this.tbNomeCliente.Size = new System.Drawing.Size(259, 22);
-            this.tbNomeCliente.TabIndex = 47;
-            // 
-            // btnExcluirTabela
-            // 
-            this.btnExcluirTabela.Location = new System.Drawing.Point(107, 113);
-            this.btnExcluirTabela.Name = "btnExcluirTabela";
-            this.btnExcluirTabela.Size = new System.Drawing.Size(113, 23);
-            this.btnExcluirTabela.TabIndex = 46;
-            this.btnExcluirTabela.Text = "Excluir Tabela";
-            this.btnExcluirTabela.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(27, 58);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(113, 23);
-            this.button10.TabIndex = 45;
-            this.button10.Text = "Adicionar";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(169, 58);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(113, 23);
-            this.button9.TabIndex = 44;
-            this.button9.Text = "Criar BD";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // dgvAcessos
-            // 
-            this.dgvAcessos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAcessos.Location = new System.Drawing.Point(17, 46);
-            this.dgvAcessos.Name = "dgvAcessos";
-            this.dgvAcessos.RowHeadersWidth = 51;
-            this.dgvAcessos.RowTemplate.Height = 24;
-            this.dgvAcessos.Size = new System.Drawing.Size(489, 469);
-            this.dgvAcessos.TabIndex = 13;
-            // 
-            // btnSairAcessos
-            // 
-            this.btnSairAcessos.Location = new System.Drawing.Point(284, 17);
-            this.btnSairAcessos.Name = "btnSairAcessos";
-            this.btnSairAcessos.Size = new System.Drawing.Size(113, 23);
-            this.btnSairAcessos.TabIndex = 15;
-            this.btnSairAcessos.Text = "Sair";
-            this.btnSairAcessos.UseVisualStyleBackColor = true;
-            this.btnSairAcessos.Click += new System.EventHandler(this.btnSairAcessos_Click);
-            // 
-            // btnMostrarAcessos
-            // 
-            this.btnMostrarAcessos.Location = new System.Drawing.Point(156, 17);
-            this.btnMostrarAcessos.Name = "btnMostrarAcessos";
-            this.btnMostrarAcessos.Size = new System.Drawing.Size(113, 23);
-            this.btnMostrarAcessos.TabIndex = 14;
-            this.btnMostrarAcessos.Text = "Mostrar Dados";
-            this.btnMostrarAcessos.UseVisualStyleBackColor = true;
-            this.btnMostrarAcessos.Click += new System.EventHandler(this.btnMostrarAcessos_Click);
-            // 
             // BDHomeAutomation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1238,12 +1152,10 @@
             this.TabelaKits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKits)).EndInit();
             this.TabelaAcessos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAcessos)).EndInit();
             this.TabelaRFID.ResumeLayout(false);
             this.TabelaRFID.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRFID)).EndInit();
-            this.GerenciarTabelas.ResumeLayout(false);
-            this.GerenciarTabelas.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAcessos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1303,14 +1215,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TabPage GerenciarTabelas;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button btnExcluirTabela;
-        private System.Windows.Forms.TextBox tbNomeCliente;
-        private System.Windows.Forms.Button btnCompletar;
-        private System.Windows.Forms.Label lblColunas;
-        private System.Windows.Forms.TextBox tbClienteEmail;
         private System.Windows.Forms.ComboBox cbNome;
         private System.Windows.Forms.ComboBox cbModuloInstalado;
         private System.Windows.Forms.TextBox tbCodigo;
