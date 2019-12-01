@@ -747,6 +747,10 @@ namespace BancoDeDados_PI
             cbPrivilegio.SelectedIndex = 1;
         }
 
+        /**
+         * BDHomeAutomation_Load action used when the database is loaded
+         * It adds questions to the combo box Pergunta in the Tabala Login Tab
+         **/
         private void BDHomeAutomation_Load(object sender, EventArgs e)
         {
             cbPergunta.Items.Clear();
@@ -759,6 +763,11 @@ namespace BancoDeDados_PI
             cbPergunta.Items.Add("Qual país você mais deseja conhecer?");
         }
 
+        /**
+         * TabelaRFID_Enter action used when the tab TabelaRFID is selected
+         * It adds dashes to the client`s name combo box and also adds the name of
+         * the clients located in the TabelaClientes
+         **/
         private void TabelaRFID_Enter(object sender, EventArgs e)
         {
             cbResponsavelRFID.Items.Clear();
@@ -775,6 +784,10 @@ namespace BancoDeDados_PI
             cbResponsavelRFID.SelectedIndex = 0;
         }
 
+        /**
+         * btnAddRFID_Click action used in the button Adicionar (Tab Tabela RFID)
+         * Add entries to the table
+         **/
         private void btnAddRFID_Click(object sender, EventArgs e)
         {
             bool nameSelected = false;
@@ -823,11 +836,19 @@ namespace BancoDeDados_PI
             }
         }
 
+        /**
+         * btnMostrarRFID_Click action used in the button Mostrar Dados (Tab Tabela RFID)
+         * Show the table TabelaRFID
+         **/
         private void btnMostrarRFID_Click(object sender, EventArgs e)
         {
             showDataBase("TabelaRFID", dgvRFID);
         }
 
+        /**
+         * btnExcluirRFID_Click action used in the button Excluir (Tab Tabela RFID)
+         * Delete selected client from the table TabelaRFID
+         **/
         private void btnExcluirRFID_Click(object sender, EventArgs e)
         {
             bool nameSelected = false;
@@ -851,6 +872,10 @@ namespace BancoDeDados_PI
             }
         }
 
+        /**
+         * button1_Click action used in the button Limpar (Tab Tabela RFID)
+         * Clean all the textboxes
+         **/
         private void button1_Click(object sender, EventArgs e)
         {
             cbResponsavelRFID.SelectedIndex = 0;
@@ -867,95 +892,31 @@ namespace BancoDeDados_PI
             tbCartao10.Text = "";
         }
 
+        /**
+         * button2_Click action used in the button Sair (Tab Tabela RFID)
+         * Exit the program
+         **/
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /**
+         * btnMostrarAcessos_Click action used in the button Mostrar Dados (Tab Tabela Acessos)
+         * show the table TabelaAcessos
+         **/
         private void btnMostrarAcessos_Click(object sender, EventArgs e)
         {
             showDataBase("TabelaAcessos", dgvAcessos);
         }
 
+        /**
+         * btnSairAcessos_Click action used in the button Sair (Tab Tabela Acessos)
+         * Exit the program
+         **/
         private void btnSairAcessos_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            // define os parâmetros para o inputbox
-            string Prompt = "Informe o nome da tabela a ser criada.Ex: Teste";
-            string Titulo = "Smart Home Automation";
-            string Resultado = Interaction.InputBox(Prompt, Titulo, "Nome Tabela", 650, 350);
-            // verifica se o resultado é uma string vazia o que indica que foi cancelado.
-
-            if (Resultado != "" ||
-                Resultado != "Nome Tabela")
-            {
-                if (Resultado.Contains(".sdf"))
-                {
-                    MessageBox.Show("Não informe a extensão .sdf no arquivo...");
-                    return;
-                }
-
-                SqlCeConnection cn = new SqlCeConnection(stringConexao());
-
-                if (cn.State == ConnectionState.Closed)
-                {
-                    cn.Open();
-                }
-                SqlCeCommand cmd;
-
-                /*string sql = "create table " + Resultado + "("
-                           + "CodigoCliente nvarchar (10) not null, "
-                           + "ModuloInstalado nvarchar (10), "
-                           + "Nome nvarchar (40), "
-                           + "Telefone nvarchar (20), "
-                           + "Celular nvarchar (20), "
-                           + "Endereco nvarchar (50), "
-                           + "Complemento nvarchar (20), "
-                           + "CEP nvarchar (15), "
-                           + "Cidade nvarchar (20), "
-                           + "Estado nvarchar (2) )";
-                */
-
-                string sql = "create table " + Resultado + "("
-                           + "Data nvarchar (60) not null, "
-                           + "Tag nvarchar (10))";
-
-                cmd = new SqlCeCommand(sql, cn);
-
-                if (MessageBox.Show("Confirma a criação da tabela ? ", "Criar Tabela", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-                        //lblResultado.Text = "Tabela " + Resultado + " criada com sucesso ";
-                    }
-                    catch (SqlCeException sqlexception)
-                    {
-                        MessageBox.Show(sqlexception.Message, "Caramba1.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Caramba2.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        cn.Close();
-                    }
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                MessageBox.Show("A operação foi cancelada...");
-            }
-
         }
     }
 }
