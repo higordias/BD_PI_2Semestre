@@ -719,5 +719,91 @@ namespace BancoDeDados_PI
             cbPergunta.Items.Add("Qual a cidade natal de sua avó?");
             cbPergunta.Items.Add("Qual país você mais deseja conhecer?");
         }
+
+        private void btnSairAcessos_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnMostrarAcessos_Click(object sender, EventArgs e)
+        {
+            showDataBase("TabelaAcessos", dgvAcessos);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            // define os parâmetros para o inputbox
+            string Prompt = "Informe o nome da tabela a ser criada.Ex: Teste";
+            string Titulo = "Smart Home Automation";
+            string Resultado = Interaction.InputBox(Prompt, Titulo, "Nome Tabela", 650, 350);
+            // verifica se o resultado é uma string vazia o que indica que foi cancelado.
+
+            if (Resultado != "" ||
+                Resultado != "Nome Tabela")
+            {
+                if (Resultado.Contains(".sdf"))
+                {
+                    MessageBox.Show("Não informe a extensão .sdf no arquivo...");
+                    return;
+                }
+
+                SqlCeConnection cn = new SqlCeConnection(stringConexao());
+
+                if (cn.State == ConnectionState.Closed)
+                {
+                    cn.Open();
+                }
+                SqlCeCommand cmd;
+
+                /*string sql = "create table " + Resultado + "("
+                           + "CodigoCliente nvarchar (10) not null, "
+                           + "ModuloInstalado nvarchar (10), "
+                           + "Nome nvarchar (40), "
+                           + "Telefone nvarchar (20), "
+                           + "Celular nvarchar (20), "
+                           + "Endereco nvarchar (50), "
+                           + "Complemento nvarchar (20), "
+                           + "CEP nvarchar (15), "
+                           + "Cidade nvarchar (20), "
+                           + "Estado nvarchar (2) )";
+                */
+
+                string sql = "create table " + Resultado + "("
+                           + "Data nvarchar (50) not null, "
+                           + "Tag nvarchar (10))";
+
+                cmd = new SqlCeCommand(sql, cn);
+
+                if (MessageBox.Show("Confirma a criação da tabela ? ", "Criar Tabela", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        //lblResultado.Text = "Tabela " + Resultado + " criada com sucesso ";
+                    }
+                    catch (SqlCeException sqlexception)
+                    {
+                        MessageBox.Show(sqlexception.Message, "Caramba1.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Caramba2.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        cn.Close();
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("A operação foi cancelada...");
+            }
+
+        }
     }
 }

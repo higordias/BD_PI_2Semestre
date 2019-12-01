@@ -105,6 +105,9 @@
             this.btnExcluirTabela = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
+            this.dgvAcessos = new System.Windows.Forms.DataGridView();
+            this.btnSairAcessos = new System.Windows.Forms.Button();
+            this.btnMostrarAcessos = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabelaLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLogin)).BeginInit();
@@ -112,7 +115,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.TabelaKits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKits)).BeginInit();
+            this.TabelaAcessos.SuspendLayout();
             this.GerenciarTabelas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAcessos)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -767,6 +772,9 @@
             // 
             // TabelaAcessos
             // 
+            this.TabelaAcessos.Controls.Add(this.btnSairAcessos);
+            this.TabelaAcessos.Controls.Add(this.btnMostrarAcessos);
+            this.TabelaAcessos.Controls.Add(this.dgvAcessos);
             this.TabelaAcessos.Location = new System.Drawing.Point(4, 25);
             this.TabelaAcessos.Name = "TabelaAcessos";
             this.TabelaAcessos.Padding = new System.Windows.Forms.Padding(3);
@@ -840,6 +848,7 @@
             this.button10.TabIndex = 45;
             this.button10.Text = "Adicionar";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button9
             // 
@@ -849,6 +858,36 @@
             this.button9.TabIndex = 44;
             this.button9.Text = "Criar BD";
             this.button9.UseVisualStyleBackColor = true;
+            // 
+            // dgvAcessos
+            // 
+            this.dgvAcessos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAcessos.Location = new System.Drawing.Point(8, 32);
+            this.dgvAcessos.Name = "dgvAcessos";
+            this.dgvAcessos.RowHeadersWidth = 51;
+            this.dgvAcessos.RowTemplate.Height = 24;
+            this.dgvAcessos.Size = new System.Drawing.Size(506, 485);
+            this.dgvAcessos.TabIndex = 48;
+            // 
+            // btnSairAcessos
+            // 
+            this.btnSairAcessos.Location = new System.Drawing.Point(280, 6);
+            this.btnSairAcessos.Name = "btnSairAcessos";
+            this.btnSairAcessos.Size = new System.Drawing.Size(113, 23);
+            this.btnSairAcessos.TabIndex = 50;
+            this.btnSairAcessos.Text = "Sair";
+            this.btnSairAcessos.UseVisualStyleBackColor = true;
+            this.btnSairAcessos.Click += new System.EventHandler(this.btnSairAcessos_Click);
+            // 
+            // btnMostrarAcessos
+            // 
+            this.btnMostrarAcessos.Location = new System.Drawing.Point(152, 6);
+            this.btnMostrarAcessos.Name = "btnMostrarAcessos";
+            this.btnMostrarAcessos.Size = new System.Drawing.Size(113, 23);
+            this.btnMostrarAcessos.TabIndex = 49;
+            this.btnMostrarAcessos.Text = "Mostrar Dados";
+            this.btnMostrarAcessos.UseVisualStyleBackColor = true;
+            this.btnMostrarAcessos.Click += new System.EventHandler(this.btnMostrarAcessos_Click);
             // 
             // BDHomeAutomation
             // 
@@ -870,8 +909,10 @@
             this.TabelaKits.ResumeLayout(false);
             this.TabelaKits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKits)).EndInit();
+            this.TabelaAcessos.ResumeLayout(false);
             this.GerenciarTabelas.ResumeLayout(false);
             this.GerenciarTabelas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAcessos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -954,6 +995,9 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox cbPrivilegio;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button btnSairAcessos;
+        private System.Windows.Forms.Button btnMostrarAcessos;
+        private System.Windows.Forms.DataGridView dgvAcessos;
     }
 }
 
