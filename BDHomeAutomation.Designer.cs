@@ -97,6 +97,35 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.TabelaAcessos = new System.Windows.Forms.TabPage();
+            this.TabelaRFID = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dgvRFID = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnMostrarRFID = new System.Windows.Forms.Button();
+            this.btnExcluirRFID = new System.Windows.Forms.Button();
+            this.btnAddRFID = new System.Windows.Forms.Button();
+            this.tbCartao10 = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.tbCartao5 = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.tbCartao9 = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.tbCartao4 = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.tbCartao8 = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.tbCartao3 = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.tbCartao7 = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.tbCartao2 = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.tbCartao6 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.tbCartao1 = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.cbResponsavelRFID = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.GerenciarTabelas = new System.Windows.Forms.TabPage();
             this.tbClienteEmail = new System.Windows.Forms.TextBox();
             this.lblColunas = new System.Windows.Forms.Label();
@@ -105,6 +134,7 @@
             this.btnExcluirTabela = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
+            this.tbResponsavelRFID = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.TabelaLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLogin)).BeginInit();
@@ -112,6 +142,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.TabelaKits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKits)).BeginInit();
+            this.TabelaRFID.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRFID)).BeginInit();
             this.GerenciarTabelas.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,6 +153,7 @@
             this.tabControl1.Controls.Add(this.TabelaClientes);
             this.tabControl1.Controls.Add(this.TabelaKits);
             this.tabControl1.Controls.Add(this.TabelaAcessos);
+            this.tabControl1.Controls.Add(this.TabelaRFID);
             this.tabControl1.Controls.Add(this.GerenciarTabelas);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -775,6 +808,292 @@
             this.TabelaAcessos.Text = "Tabela Acessos";
             this.TabelaAcessos.UseVisualStyleBackColor = true;
             // 
+            // TabelaRFID
+            // 
+            this.TabelaRFID.Controls.Add(this.button1);
+            this.TabelaRFID.Controls.Add(this.dgvRFID);
+            this.TabelaRFID.Controls.Add(this.button2);
+            this.TabelaRFID.Controls.Add(this.btnMostrarRFID);
+            this.TabelaRFID.Controls.Add(this.btnExcluirRFID);
+            this.TabelaRFID.Controls.Add(this.btnAddRFID);
+            this.TabelaRFID.Controls.Add(this.tbCartao10);
+            this.TabelaRFID.Controls.Add(this.label33);
+            this.TabelaRFID.Controls.Add(this.tbCartao5);
+            this.TabelaRFID.Controls.Add(this.label34);
+            this.TabelaRFID.Controls.Add(this.tbCartao9);
+            this.TabelaRFID.Controls.Add(this.label31);
+            this.TabelaRFID.Controls.Add(this.tbCartao4);
+            this.TabelaRFID.Controls.Add(this.label32);
+            this.TabelaRFID.Controls.Add(this.tbCartao8);
+            this.TabelaRFID.Controls.Add(this.label29);
+            this.TabelaRFID.Controls.Add(this.tbCartao3);
+            this.TabelaRFID.Controls.Add(this.label30);
+            this.TabelaRFID.Controls.Add(this.tbCartao7);
+            this.TabelaRFID.Controls.Add(this.label27);
+            this.TabelaRFID.Controls.Add(this.tbCartao2);
+            this.TabelaRFID.Controls.Add(this.label28);
+            this.TabelaRFID.Controls.Add(this.tbCartao6);
+            this.TabelaRFID.Controls.Add(this.label26);
+            this.TabelaRFID.Controls.Add(this.tbCartao1);
+            this.TabelaRFID.Controls.Add(this.label25);
+            this.TabelaRFID.Controls.Add(this.cbResponsavelRFID);
+            this.TabelaRFID.Controls.Add(this.label24);
+            this.TabelaRFID.Controls.Add(this.tbResponsavelRFID);
+            this.TabelaRFID.Location = new System.Drawing.Point(4, 25);
+            this.TabelaRFID.Name = "TabelaRFID";
+            this.TabelaRFID.Size = new System.Drawing.Size(522, 523);
+            this.TabelaRFID.TabIndex = 6;
+            this.TabelaRFID.Text = "TabelaRFID";
+            this.TabelaRFID.UseVisualStyleBackColor = true;
+            this.TabelaRFID.Enter += new System.EventHandler(this.TabelaRFID_Enter);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(376, 188);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(62, 23);
+            this.button1.TabIndex = 33;
+            this.button1.Text = "Limpar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // dgvRFID
+            // 
+            this.dgvRFID.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRFID.Location = new System.Drawing.Point(14, 217);
+            this.dgvRFID.Name = "dgvRFID";
+            this.dgvRFID.RowHeadersWidth = 51;
+            this.dgvRFID.RowTemplate.Height = 24;
+            this.dgvRFID.Size = new System.Drawing.Size(489, 298);
+            this.dgvRFID.TabIndex = 35;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(443, 188);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(60, 23);
+            this.button2.TabIndex = 34;
+            this.button2.Text = "Sair";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnMostrarRFID
+            // 
+            this.btnMostrarRFID.Location = new System.Drawing.Point(247, 188);
+            this.btnMostrarRFID.Name = "btnMostrarRFID";
+            this.btnMostrarRFID.Size = new System.Drawing.Size(124, 23);
+            this.btnMostrarRFID.TabIndex = 32;
+            this.btnMostrarRFID.Text = "Mostrar Dados";
+            this.btnMostrarRFID.UseVisualStyleBackColor = true;
+            this.btnMostrarRFID.Click += new System.EventHandler(this.btnMostrarRFID_Click);
+            // 
+            // btnExcluirRFID
+            // 
+            this.btnExcluirRFID.Location = new System.Drawing.Point(129, 188);
+            this.btnExcluirRFID.Name = "btnExcluirRFID";
+            this.btnExcluirRFID.Size = new System.Drawing.Size(113, 23);
+            this.btnExcluirRFID.TabIndex = 31;
+            this.btnExcluirRFID.Text = "Excluir";
+            this.btnExcluirRFID.UseVisualStyleBackColor = true;
+            this.btnExcluirRFID.Click += new System.EventHandler(this.btnExcluirRFID_Click);
+            // 
+            // btnAddRFID
+            // 
+            this.btnAddRFID.Location = new System.Drawing.Point(14, 188);
+            this.btnAddRFID.Name = "btnAddRFID";
+            this.btnAddRFID.Size = new System.Drawing.Size(110, 23);
+            this.btnAddRFID.TabIndex = 30;
+            this.btnAddRFID.Text = "Adicionar";
+            this.btnAddRFID.UseVisualStyleBackColor = true;
+            this.btnAddRFID.Click += new System.EventHandler(this.btnAddRFID_Click);
+            // 
+            // tbCartao10
+            // 
+            this.tbCartao10.Location = new System.Drawing.Point(366, 160);
+            this.tbCartao10.Name = "tbCartao10";
+            this.tbCartao10.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao10.TabIndex = 29;
+            this.tbCartao10.TabStop = false;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(270, 163);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(87, 17);
+            this.label33.TabIndex = 28;
+            this.label33.Text = "ID Cartão 10";
+            // 
+            // tbCartao5
+            // 
+            this.tbCartao5.Location = new System.Drawing.Point(107, 160);
+            this.tbCartao5.Name = "tbCartao5";
+            this.tbCartao5.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao5.TabIndex = 27;
+            this.tbCartao5.TabStop = false;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(11, 163);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(79, 17);
+            this.label34.TabIndex = 26;
+            this.label34.Text = "ID Cartão 5";
+            // 
+            // tbCartao9
+            // 
+            this.tbCartao9.Location = new System.Drawing.Point(366, 132);
+            this.tbCartao9.Name = "tbCartao9";
+            this.tbCartao9.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao9.TabIndex = 25;
+            this.tbCartao9.TabStop = false;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(270, 135);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(79, 17);
+            this.label31.TabIndex = 24;
+            this.label31.Text = "ID Cartão 9";
+            // 
+            // tbCartao4
+            // 
+            this.tbCartao4.Location = new System.Drawing.Point(107, 132);
+            this.tbCartao4.Name = "tbCartao4";
+            this.tbCartao4.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao4.TabIndex = 23;
+            this.tbCartao4.TabStop = false;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(11, 135);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(79, 17);
+            this.label32.TabIndex = 22;
+            this.label32.Text = "ID Cartão 4";
+            // 
+            // tbCartao8
+            // 
+            this.tbCartao8.Location = new System.Drawing.Point(366, 104);
+            this.tbCartao8.Name = "tbCartao8";
+            this.tbCartao8.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao8.TabIndex = 21;
+            this.tbCartao8.TabStop = false;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(270, 107);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(79, 17);
+            this.label29.TabIndex = 20;
+            this.label29.Text = "ID Cartão 8";
+            // 
+            // tbCartao3
+            // 
+            this.tbCartao3.Location = new System.Drawing.Point(107, 104);
+            this.tbCartao3.Name = "tbCartao3";
+            this.tbCartao3.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao3.TabIndex = 19;
+            this.tbCartao3.TabStop = false;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(11, 107);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(79, 17);
+            this.label30.TabIndex = 18;
+            this.label30.Text = "ID Cartão 3";
+            // 
+            // tbCartao7
+            // 
+            this.tbCartao7.Location = new System.Drawing.Point(366, 76);
+            this.tbCartao7.Name = "tbCartao7";
+            this.tbCartao7.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao7.TabIndex = 17;
+            this.tbCartao7.TabStop = false;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(270, 79);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(79, 17);
+            this.label27.TabIndex = 16;
+            this.label27.Text = "ID Cartão 7";
+            // 
+            // tbCartao2
+            // 
+            this.tbCartao2.Location = new System.Drawing.Point(107, 76);
+            this.tbCartao2.Name = "tbCartao2";
+            this.tbCartao2.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao2.TabIndex = 15;
+            this.tbCartao2.TabStop = false;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(11, 79);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(79, 17);
+            this.label28.TabIndex = 14;
+            this.label28.Text = "ID Cartão 2";
+            // 
+            // tbCartao6
+            // 
+            this.tbCartao6.Location = new System.Drawing.Point(366, 48);
+            this.tbCartao6.Name = "tbCartao6";
+            this.tbCartao6.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao6.TabIndex = 13;
+            this.tbCartao6.TabStop = false;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(270, 51);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(79, 17);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "ID Cartão 6";
+            // 
+            // tbCartao1
+            // 
+            this.tbCartao1.Location = new System.Drawing.Point(107, 48);
+            this.tbCartao1.Name = "tbCartao1";
+            this.tbCartao1.Size = new System.Drawing.Size(137, 22);
+            this.tbCartao1.TabIndex = 11;
+            this.tbCartao1.TabStop = false;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(11, 51);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(79, 17);
+            this.label25.TabIndex = 10;
+            this.label25.Text = "ID Cartão 1";
+            // 
+            // cbResponsavelRFID
+            // 
+            this.cbResponsavelRFID.FormattingEnabled = true;
+            this.cbResponsavelRFID.Location = new System.Drawing.Point(107, 18);
+            this.cbResponsavelRFID.Name = "cbResponsavelRFID";
+            this.cbResponsavelRFID.Size = new System.Drawing.Size(396, 24);
+            this.cbResponsavelRFID.TabIndex = 3;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(11, 22);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(90, 17);
+            this.label24.TabIndex = 2;
+            this.label24.Text = "Responsável";
+            // 
             // GerenciarTabelas
             // 
             this.GerenciarTabelas.Controls.Add(this.tbClienteEmail);
@@ -850,6 +1169,15 @@
             this.button9.Text = "Criar BD";
             this.button9.UseVisualStyleBackColor = true;
             // 
+            // tbResponsavelRFID
+            // 
+            this.tbResponsavelRFID.Enabled = false;
+            this.tbResponsavelRFID.Location = new System.Drawing.Point(192, 19);
+            this.tbResponsavelRFID.Name = "tbResponsavelRFID";
+            this.tbResponsavelRFID.Size = new System.Drawing.Size(137, 22);
+            this.tbResponsavelRFID.TabIndex = 36;
+            this.tbResponsavelRFID.TabStop = false;
+            // 
             // BDHomeAutomation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -870,6 +1198,9 @@
             this.TabelaKits.ResumeLayout(false);
             this.TabelaKits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKits)).EndInit();
+            this.TabelaRFID.ResumeLayout(false);
+            this.TabelaRFID.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRFID)).EndInit();
             this.GerenciarTabelas.ResumeLayout(false);
             this.GerenciarTabelas.PerformLayout();
             this.ResumeLayout(false);
@@ -954,6 +1285,36 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox cbPrivilegio;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TabPage TabelaRFID;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dgvRFID;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnMostrarRFID;
+        private System.Windows.Forms.Button btnExcluirRFID;
+        private System.Windows.Forms.Button btnAddRFID;
+        private System.Windows.Forms.TextBox tbCartao10;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TextBox tbCartao5;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox tbCartao9;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox tbCartao4;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox tbCartao8;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox tbCartao3;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox tbCartao7;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox tbCartao2;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox tbCartao6;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox tbCartao1;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox cbResponsavelRFID;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox tbResponsavelRFID;
     }
 }
 

@@ -215,6 +215,45 @@ namespace BancoDeDados_PI
         }
 
         /**
+         * CarregarLinhaTabelaRFID is used to add entries to TabelaRFID
+         * @nome: client's name
+         * @cartao1 - cartao10: client's rfid card
+         * @cn: sql database connection
+         **/
+        private void CarregarLinhaTabelaRFID(string Responsavel, string Cartao1, string Cartao2, string Cartao3, string Cartao4, string Cartao5,
+                                              string Cartao6, string Cartao7, string Cartao8, string Cartao9, string Cartao10, SqlCeConnection cn)
+        {
+            SqlCeCommand cmd;
+            string sqlRFID = "insert into TabelaRFID "
+                            + "(Responsavel, Cartao1, Cartao2, Cartao3, Cartao4, Cartao5, Cartao6, Cartao7, Cartao8, Cartao9, Cartao10) "
+                            + "values (@Responsavel, @Cartao1, @Cartao2, @Cartao3, @Cartao4, @Cartao5, @Cartao6, @Cartao7, @Cartao8, @Cartao9, @Cartao10)";
+            try
+            {
+                cmd = new SqlCeCommand(sqlRFID, cn);
+                cmd.Parameters.AddWithValue("@Responsavel", Responsavel);
+                cmd.Parameters.AddWithValue("@Cartao1", Cartao1);
+                cmd.Parameters.AddWithValue("@Cartao2", Cartao2);
+                cmd.Parameters.AddWithValue("@Cartao3", Cartao3);
+                cmd.Parameters.AddWithValue("@Cartao4", Cartao4);
+                cmd.Parameters.AddWithValue("@Cartao5", Cartao5);
+                cmd.Parameters.AddWithValue("@Cartao6", Cartao6);
+                cmd.Parameters.AddWithValue("@Cartao7", Cartao7);
+                cmd.Parameters.AddWithValue("@Cartao8", Cartao8);
+                cmd.Parameters.AddWithValue("@Cartao9", Cartao9);
+                cmd.Parameters.AddWithValue("@Cartao10", Cartao10);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlCeException sqlexception)
+            {
+                MessageBox.Show(sqlexception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /**
          * showDataBase will load the database and show it in a grid
          * @tabela: table's name
          * @grid: grid where the table will be showed
@@ -718,6 +757,119 @@ namespace BancoDeDados_PI
             cbPergunta.Items.Add("Qual o nome do seu primeiro animal de estimação?");
             cbPergunta.Items.Add("Qual a cidade natal de sua avó?");
             cbPergunta.Items.Add("Qual país você mais deseja conhecer?");
+        }
+
+        private void TabelaRFID_Enter(object sender, EventArgs e)
+        {
+            cbResponsavelRFID.Items.Clear();
+            cbResponsavelRFID.Items.Add("------");
+            SqlCeConnection cn = new SqlCeConnection(stringConexao());
+            SqlCeCommand command = new SqlCeCommand("SELECT * FROM TabelaClientes", cn);
+            SqlCeDataAdapter da = new SqlCeDataAdapter(command);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+                cbResponsavelRFID.Items.Add(dr["Nome"].ToString());
+            }
+            cbResponsavelRFID.SelectedIndex = 0;
+        }
+
+        private void btnAddRFID_Click(object sender, EventArgs e)
+        {
+            bool nameSelected = false;
+            string selectedItemName = cbResponsavelRFID.SelectedItem.ToString();
+            int nameIndex = cbResponsavelRFID.FindString(selectedItemName);
+
+            if (nameIndex >= 0)
+            {
+                nameSelected = true;
+            }
+
+            if (nameSelected == false)
+            {
+                MessageBox.Show("Selecione um cliente para adicionar uma entrada!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (nameSelected == false) { cbResponsavelRFID.Focus(); }
+            }
+            else
+            {
+                SqlCeConnection cn = new SqlCeConnection(stringConexao());
+                if (cn.State == ConnectionState.Closed)
+                {
+                    cn.Open();
+                }
+
+                try
+                {
+                    CarregarLinhaTabelaRFID(selectedItemName, tbCartao1.Text, tbCartao2.Text, tbCartao3.Text, tbCartao4.Text, tbCartao5.Text,
+                                                tbCartao6.Text, tbCartao7.Text, tbCartao8.Text, tbCartao9.Text, tbCartao10.Text, cn);
+                    tbCartao1.Text = "";
+                    tbCartao2.Text = "";
+                    tbCartao3.Text = "";
+                    cbResponsavelRFID.SelectedIndex = 0;
+                    tbCartao4.Text = "";
+                    tbCartao5.Text = "";
+                    tbCartao6.Text = "";
+                    tbCartao7.Text = "";
+                    tbCartao8.Text = "";
+                    tbCartao9.Text = "";
+                    tbCartao10.Text = "";
+                    showDataBase("TabelaRFID", dgvRFID);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnMostrarRFID_Click(object sender, EventArgs e)
+        {
+            showDataBase("TabelaRFID", dgvRFID);
+        }
+
+        private void btnExcluirRFID_Click(object sender, EventArgs e)
+        {
+            bool nameSelected = false;
+            string selectedItemName = cbResponsavelRFID.SelectedItem.ToString();
+            int nameIndex = cbResponsavelRFID.FindString(selectedItemName);
+            tbResponsavelRFID.Text = selectedItemName;
+
+            if (nameIndex >= 0)
+            {
+                nameSelected = true;
+            }
+
+            if (nameSelected == false)
+            {
+                MessageBox.Show("Selecione um cliente para ser deletado!", "Campo Vazio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cbResponsavelRFID.Focus();
+            }
+            else
+            {
+                deleteEntries("TabelaRFID", "Responsavel", tbResponsavelRFID, dgvRFID);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cbResponsavelRFID.SelectedIndex = 0;
+            tbResponsavelRFID.Text = "";
+            tbCartao1.Text = "";
+            tbCartao2.Text = "";
+            tbCartao3.Text = "";
+            tbCartao4.Text = "";
+            tbCartao5.Text = "";
+            tbCartao6.Text = "";
+            tbCartao7.Text = "";
+            tbCartao8.Text = "";
+            tbCartao9.Text = "";
+            tbCartao10.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
